@@ -1,0 +1,1 @@
+./loading_process.sh YES 2> ../loading_err_$(date +%Y%m%d_%H%M).txt  >../loading_log_$(date +%Y%m%d_%H%M).txt
