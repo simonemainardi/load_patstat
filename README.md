@@ -36,23 +36,31 @@ Go in bin and:
     
  2. Execute `go` script and WAIT
 
+```
     cd bin
     ./go
+```
 
  3. You will find the logs in the base dir like:
 
+```
     loading_log_20120511_0951.txt
     loading_err_20120511_0951.txt
+```
 
  4. Backup patstat db with backup_db.sh
 
+```
     backup_db.sh
+```
 
  5. Make ITAAPPDB with mk_italian_db/select_italian_applicants.sql
 
+```
     cd ../make_italian_db
     mysql -uroot -p
     mysql> source select_italian_applicants.sql
+```
 
  6. be happy
 
