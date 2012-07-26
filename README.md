@@ -15,6 +15,7 @@ Go in bin and:
 
  1. Configure setup.sh
 
+```
     export APPL=patstat
     export REL=04
     export YEAR=2012
@@ -31,6 +32,7 @@ Go in bin and:
     export RELEASE=Patstat_${YEAR}_${REL}
     export MYSQLVARPATH=/var/mysql
     export DUMPFILE=$HOME/dumps/${RELEASE}.sql
+```
     
  2. Execute `go` script and WAIT
 
