@@ -16,5 +16,5 @@ KEY `appln_id` (`appln_id`),
 KEY `publn_date` (`publn_date`)
 )
 ENGINE = MyISAM
-MAX_ROWS = 71000000
+MAX_ROWS = 82000000
 DEFAULT CHARSET utf8 COLLATE utf8_unicode_ci;

@@ -6,7 +6,7 @@ Import script for PATSTAT
 Prerequisites
 -------------
 
-All PATSTAT txt files should be decompressed in a load path as configured in setup.sh
+All PATSTAT txt files should be decompressed in a load path as configured in `setup.sh`
 
 Use
 ---
@@ -54,7 +54,7 @@ Go in bin and:
     backup_db.sh
 ```
 
- 5. Make ITAAPPDB with mk_italian_db/select_italian_applicants.sql
+ 5. Make ITAAPPDB with `mk_italian_db/select_italian_applicants.sql`
 
 ```
     cd ../make_italian_db

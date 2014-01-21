@@ -6,7 +6,7 @@ BASE=$(dirname $0)
 
 create_db $DB
 
-mk_op load_table
+mk_op_2013_09 load_table
 mk_tls206_ascii
-mk_op count_table
+mk_op_2013_09 count_table
 

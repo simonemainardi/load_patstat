@@ -20,6 +20,20 @@ BASE=$(dirname $MY_PATH)
 
 export SENDSQL="$MYSQL -u$USER -p$PASS $DB"
 
+mkgitrepo() {
+    # test -f $LOADPATH/$RELEASE/$REPO/$2.txt && rm $LOADPATH/$RELEASE/$REPO/$2.txt
+    test -d $LOADPATH/$RELEASE/$REPO || mkdir -p $LOADPATH/$RELEASE/$REPO
+	for ((I=1; I<=$3; I++)); do
+		PART=$(echo $I|sed "s/^\([0-9]\)$/0\\1/")
+        TXTFILE=$LOADPATH/$RELEASE/$1/$2_part${PART}.txt
+        if (( $I==1 )); then
+            cat $TXTFILE > $LOADPATH/$RELEASE/$REPO/$2.txt
+        else
+            tail -n +2 $TXTFILE >> $LOADPATH/$RELEASE/$REPO/$2.txt
+        fi
+    done
+}
+
 create_db() {
 	$MYSQLADM -u$USER -p$PASS create $DB
 }
@@ -77,6 +91,15 @@ load_table() {
 	for ((I=1; I<=$3; I++)); do
 		PART=$(echo $I|sed "s/^\([0-9]\)$/0\\1/")
         TXTFILE=$LOADPATH/$RELEASE/$1/$2_part${PART}.txt
+
+        if [ ! -f $TXTFILE ]; then
+            GZFILE=$TXTFILE.gz
+            if [ -f $GZFILE ]; then
+                gzcat $GZFILE > $TXTFILE
+            else
+                exit -1
+            fi
+        fi
 
 
 	    if [ $6 == 'YES' ]; then
@@ -218,30 +241,34 @@ count_table() {
 	echo $2 $WC
 }
 
-mk_op() {
+mk_op_2013_09() {
 OP=$1
     #Sector#File  #Parts    #Table                       #Disable_keys  # convert latin1->utf8  #CSV
-$OP TXT tls201    10        TLS201_APPLN                 YES            NO                      CSV
-$OP TXT tls202    10        TLS202_APPLN_TITLE           NO             NO                      CSV
-$OP TXT tls203    30        TLS203_APPLN_ABSTR           NO             NO                      CSV
-$OP TXT tls204    5         TLS204_APPLN_PRIOR           YES            NO                      CSV
-$OP TXT tls205    5         TLS205_TECH_REL              NO             NO                      CSV
-$OP TXT tls206    10        TLS206_PERSON                YES            NO                      CSV
-$OP TXT tls207    10        TLS207_PERS_APPLN            YES            NO                      CSV
-$OP TXT tls208    5         TLS208_DOC_STD_NMS           YES            NO                      CSV
-$OP TXT tls209    10        TLS209_APPLN_IPC             YES            NO                      CSV
-$OP TXT tls210    5         TLS210_APPLN_N_CLS           NO             NO                      CSV
-$OP TXT tls211    5         TLS211_PAT_PUBLN             YES            NO                      CSV
-$OP TXT tls212    10        TLS212_CITATION              YES            NO                      CSV
-$OP TXT tls214    5         TLS214_NPL_PUBLN             NO             NO                      CSV
-$OP TXT tls215    5         TLS215_CITN_CATEG            NO             NO                      CSV
-$OP TXT tls216    5         TLS216_APPLN_CONTN           NO             NO                      CSV
-$OP TXT tls217    5         TLS217_APPLN_I_CLS           NO             NO                      CSV
-$OP TXT tls218    5         TLS218_DOCDB_FAM             NO             NO                      CSV
-$OP TXT tls219    5         TLS219_INPADOC_FAM           NO             NO                      CSV
-$OP TXT tls222    20        TLS222_APPLN_JP_CLASS        NO             NO                      CSV
-$OP TXT tls223    5         TLS223_APPLN_DOCUS           NO             NO                      CSV
+$OP Data tls201    4         TLS201_APPLN                 YES            NO                      CSV
+$OP Data tls202    3         TLS202_APPLN_TITLE           NO             NO                      CSV
+$OP Data tls203    23        TLS203_APPLN_ABSTR           NO             NO                      CSV
+$OP Data tls204    1         TLS204_APPLN_PRIOR           YES            NO                      CSV
+$OP Data tls205    1         TLS205_TECH_REL              NO             NO                      CSV
+$OP Data tls206    2        TLS206_PERSON                YES            NO                      CSV
+$OP Data tls207    2        TLS207_PERS_APPLN            YES            NO                      CSV
+$OP Data tls208    1         TLS208_DOC_STD_NMS           YES            NO                      CSV
+$OP Data tls209    6        TLS209_APPLN_IPC             YES            NO                      CSV
+$OP Data tls210    1         TLS210_APPLN_N_CLS           NO             NO                      CSV
+$OP Data tls211    3         TLS211_PAT_PUBLN             YES            NO                      CSV
+$OP Data tls212    6        TLS212_CITATION              YES            NO                      CSV
+$OP Data tls214    2         TLS214_NPL_PUBLN             NO             NO                      CSV
+$OP Data tls215    1         TLS215_CITN_CATEG            NO             NO                      CSV
+$OP Data tls216    1         TLS216_APPLN_CONTN           NO             NO                      CSV
+# $OP Data tls217             TLS217_APPLN_I_CLS          NO             NO                      CSV
+$OP Data tls218    1         TLS218_DOCDB_FAM             NO             NO                      CSV
+$OP Data tls219    1         TLS219_INPADOC_FAM           NO             NO                      CSV
+$OP Data tls222    6        TLS222_APPLN_JP_CLASS         NO             NO                      CSV
+$OP Data tls223    1         TLS223_APPLN_DOCUS           NO             NO                      CSV
+$OP Data tls224    5         TLS224_APPLN_CPC             NO             NO                      CSV
+$OP Data tls226    3         TLS226_PERSON_ORIG           NO             NO                      CSV
+$OP Data tls227    3         TLS227_PERS_PUBLN            NO             NO                      CSV
 }
+
 
 mk_tls206_ascii(){
     #Sector #File           #Parts    #Table                      #Disable_keys   # convert latin1->utf8 #CSV

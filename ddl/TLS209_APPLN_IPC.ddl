@@ -12,5 +12,5 @@ PRIMARY KEY  (`appln_id`,`ipc_class_symbol`,`ipc_class_level`),
 KEY `ipc_class_symbol` (`ipc_class_symbol`)
 )
 ENGINE = MyISAM
-MAX_ROWS = 278000000
+MAX_ROWS = 178000000
 DEFAULT CHARSET utf8 COLLATE utf8_unicode_ci;

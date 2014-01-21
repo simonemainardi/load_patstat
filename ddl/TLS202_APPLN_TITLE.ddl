@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `TLS202_APPLN_TITLE` (
  appln_title text          NOT NULL, -- < was
   PRIMARY KEY  (appln_id)
 )
-MAX_ROWS       = 55000000
+MAX_ROWS       = 58000000
 AVG_ROW_LENGTH = 600
 ENGINE         = MyISAM
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;

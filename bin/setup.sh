@@ -1,18 +1,19 @@
 export APPL=patstat
-export REL=04
-export YEAR=2012
-export MYSQL="mysql5 --local-infile "
-export MYSQLADM=mysqladmin5
-export MYSQLDUMP=mysqldump5
-export MYISAMCHK=myisamchk5
-export MYISAMPACK=myisampack5
+export REL=09
+export YEAR=2013
+export MYSQL="mysql --local-infile "
+export MYSQLADM=mysqladmin
+export MYSQLDUMP=mysqldump
+export MYISAMCHK=myisamchk
+export MYISAMPACK=myisampack
 export USER=root
 export PASS=root
-export LOADPATH=/Users/Shared/PATSTAT-DVD
-export ZIPARCHIVE=/Users/Shared/PATSTAT-DVD
-export RELEASE=Patstat_${YEAR}_${REL}
+export LOADPATH=/Volumes/octopus/PATSTAT-DVD
+export ZIPARCHIVE=/Volumes/octopus/PATSTAT-DVD
+export RELEASE=PATSTAT_${YEAR}_${REL}
 export MYSQLVARPATH=/var/mysql
 export DUMPFILE=$HOME/dumps/${RELEASE}.sql
+export $REPO=gitpatstat
 
 #### DO NOT CHANGE BELOW THIS LINE
 #
