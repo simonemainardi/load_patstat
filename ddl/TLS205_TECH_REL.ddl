@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS205_TECH_REL`;
-CREATE TABLE IF NOT EXISTS `TLS205_TECH_REL` (
+DROP TABLE IF EXISTS `tls205_tech_rel`;
+CREATE TABLE IF NOT EXISTS `tls205_tech_rel` (
   appln_id int NOT NULL default 0,
   tech_rel_appln_id int NOT NULL default 0,
   PRIMARY KEY  (appln_id,tech_rel_appln_id)

@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS223_APPLN_DOCUS`;
-CREATE TABLE `TLS223_APPLN_DOCUS` (
+DROP TABLE IF EXISTS `tls223_appln_docus`;
+CREATE TABLE `tls223_appln_docus` (
   appln_id  int NOT NULL default '0',
   docus_class_symbol VARCHAR(50) NOT NULL default '',
   PRIMARY KEY (appln_id,docus_class_symbol),

@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `TLS221_INPADOC_PRS`;
-CREATE TABLE IF NOT EXISTS `TLS221_INPADOC_PRS` (
+DROP TABLE IF EXISTS `tls221_inpadoc_prs`;
+CREATE TABLE IF NOT EXISTS `tls221_inpadoc_prs` (
 	appln_id int NOT NULL DEFAULT '0',
 	prs_event_seq_nr smallint NOT NULL DEFAULT '0',
 	prs_gazette_date date NOT NULL DEFAULT '9999-12-31',

@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS202_APPLN_TITLE`;
-CREATE TABLE IF NOT EXISTS `TLS202_APPLN_TITLE` (
+DROP TABLE IF EXISTS `tls202_appln_title`;
+CREATE TABLE IF NOT EXISTS `tls202_appln_title` (
   appln_id int NOT NULL default 0,
 --  appln_title VARCHAR(3000) NOT NULL,
  appln_title text          NOT NULL, -- < was

@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS  `TLS209_APPLN_IPC`;
-CREATE TABLE IF NOT EXISTS  `TLS209_APPLN_IPC` (
+DROP TABLE IF EXISTS  `tls209_appln_ipc`;
+CREATE TABLE IF NOT EXISTS  `tls209_appln_ipc` (
 `appln_id` int NOT NULL default '0',
 `ipc_class_symbol` varchar(15) NOT NULL default '',
 `ipc_class_level` char(1) NOT NULL default '',

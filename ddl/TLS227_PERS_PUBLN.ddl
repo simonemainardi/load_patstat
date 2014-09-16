@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS227_PERS_PUBLN`;
-CREATE TABLE `TLS227_PERS_PUBLN` (
+DROP TABLE IF EXISTS `tls227_pers_publn`;
+CREATE TABLE `tls227_pers_publn` (
 	`person_id` int NOT NULL DEFAULT 0,
 	`pat_publn_id` int NOT NULL DEFAULT 0,
 	`applt_seq_nr` smallint NOT NULL DEFAULT 0,

@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS206_PERSON`;
-CREATE TABLE IF NOT EXISTS `TLS206_PERSON` (
+DROP TABLE IF EXISTS `tls206_person`;
+CREATE TABLE IF NOT EXISTS `tls206_person` (
   person_id int NOT NULL default '0',
   person_ctry_code char(2) NOT NULL default '',
   doc_std_name_id int NOT NULL default '0',

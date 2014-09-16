@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS214_NPL_PUBLN`;
-CREATE TABLE IF NOT EXISTS `TLS214_NPL_PUBLN` (
+DROP TABLE IF EXISTS `tls214_npl_publn`;
+CREATE TABLE IF NOT EXISTS `tls214_npl_publn` (
   npl_publn_id int NOT NULL default '0',
   npl_biblio TEXT NOT NULL,
   PRIMARY KEY  (npl_publn_id)

@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `TLS802_LEGAL_EVENT_CODE`;
-CREATE TABLE IF NOT EXISTS `TLS802_LEGAL_EVENT_CODE` (
+DROP TABLE IF EXISTS `tls802_legal_event_code`;
+CREATE TABLE IF NOT EXISTS `tls802_legal_event_code` (
   lec_id smallint NOT NULL default '0',
   auth_cc varchar(2) not null default '',
   lec_name varchar(4) not null default '',

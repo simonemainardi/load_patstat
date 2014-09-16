@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS210_APPLN_N_CLS`;
-CREATE TABLE IF NOT EXISTS `TLS210_APPLN_N_CLS` (
+DROP TABLE IF EXISTS `tls210_appln_n_cls`;
+CREATE TABLE IF NOT EXISTS `tls210_appln_n_cls` (
   appln_id int NOT NULL default '0',
   nat_class_symbol varchar(15) NOT NULL default '',
   PRIMARY KEY  (appln_id,nat_class_symbol)

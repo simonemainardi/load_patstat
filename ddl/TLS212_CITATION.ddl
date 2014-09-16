@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS212_CITATION`;
-CREATE TABLE IF NOT EXISTS `TLS212_CITATION` (
+DROP TABLE IF EXISTS `tls212_citation`;
+CREATE TABLE IF NOT EXISTS `tls212_citation` (
   pat_publn_id int NOT NULL default '0',
   citn_id smallint NOT NULL default '0',
   citn_origin char(5) NOT NULL default '',

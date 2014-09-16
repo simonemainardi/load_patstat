@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS222_APPLN_JP_CLASS`;
-CREATE TABLE `TLS222_APPLN_JP_CLASS` (
+DROP TABLE IF EXISTS `tls222_appln_jp_class`;
+CREATE TABLE `tls222_appln_jp_class` (
   appln_id int NOT NULL default '0',
   jp_class_scheme VARCHAR(5) NOT NULL default '',
   jp_class_symbol VARCHAR(50) NOT NULL default '',

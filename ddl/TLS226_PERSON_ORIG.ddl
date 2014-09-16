@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS226_PERSON_ORIG`;
-CREATE TABLE `TLS226_PERSON_ORIG` (
+DROP TABLE IF EXISTS `tls226_person_orig`;
+CREATE TABLE `tls226_person_orig` (
 	`person_orig_id` int NOT NULL DEFAULT 0,
 	`person_id` int NOT NULL DEFAULT 0,
 	`source` char(5) NOT NULL DEFAULT '',

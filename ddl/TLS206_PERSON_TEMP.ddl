@@ -1,9 +1,6 @@
 -- -*- mode: sql -*-
-
-DROP TABLE IF EXISTS `TLS206_PERSON_TEMP`;
---
---
-CREATE TABLE `TLS206_PERSON_TEMP` (
+DROP TABLE IF EXISTS `tls206_person_temp`;
+CREATE TABLE `tls206_person_temp` (
   person_id int unsigned NOT NULL,
   doc_sn_id int unsigned NOT NULL,
   appln_id int unsigned NOT NULL,

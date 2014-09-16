@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS224_APPLN_CPC`;
-CREATE TABLE `TLS222_APPLN_CPC` (
+DROP TABLE IF EXISTS `tls224_appln_cpc`;
+CREATE TABLE `tls222_appln_cpc` (
   appln_id  int NOT NULL default '0',
   	`cpc_class_symbol` VARCHAR(19) NOT NULL DEFAULT '',
 	`cpc_scheme` VARCHAR(5) NOT NULL DEFAULT '',

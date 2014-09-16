@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS  `TLS211_PAT_PUBLN`;
-CREATE TABLE IF NOT EXISTS  `TLS211_PAT_PUBLN` (
+DROP TABLE IF EXISTS  `tls211_pat_publn`;
+CREATE TABLE IF NOT EXISTS  `tls211_pat_publn` (
 `pat_publn_id` int NOT NULL default '0',
 `publn_auth` char(2) NOT NULL default '',
 `publn_nr` varchar(15) NOT NULL default '',

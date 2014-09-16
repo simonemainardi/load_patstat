@@ -1,6 +1,6 @@
 -- -*- mode: sql -*-
-DROP TABLE IF EXISTS `TLS216_APPLN_CONTN`;
-CREATE TABLE IF NOT EXISTS `TLS216_APPLN_CONTN` (
+DROP TABLE IF EXISTS `tls216_appln_contn`;
+CREATE TABLE IF NOT EXISTS `tls216_appln_contn` (
   appln_id int NOT NULL default '0',
   parent_appln_id int NOT NULL default '0',
   contn_type char(3) NOT NULL default '',

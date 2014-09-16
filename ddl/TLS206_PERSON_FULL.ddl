@@ -1,7 +1,6 @@
 -- -*- mode: sql -*-
-
-DROP TABLE IF EXISTS `TLS206_PERSON_FULL`;
-CREATE TABLE `TLS206_PERSON_FULL` (
+DROP TABLE IF EXISTS `tls206_person_full`;
+CREATE TABLE `tls206_person_full` (
   person_id int unsigned NOT NULL,
   doc_sn_id int unsigned NOT NULL,
   appln_id int unsigned NOT NULL,
@@ -26,7 +25,7 @@ MAX_ROWS = 50000000
 ENGINE = MyISAM
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-INSERT INTO `TLS206_PERSON_FULL`
+INSERT INTO `tls206_person_full`
 SELECT
   P.person_id
 , P.doc_sn_id
@@ -48,11 +47,11 @@ SELECT
 ,		TRIM(MID(P.name_address,P.last_name_len+P.first_name_len+P.middle_name_len+P.street_len+P.city_len+1,P.state_len  ))               AS state
 ,		TRIM(MID(P.name_address,P.last_name_len+P.first_name_len+P.middle_name_len+P.street_len+P.city_len+P.state_len+1, P.zip_code_len)) AS zip_code
 FROM
-`TLS206_PERSON_TEMP` P;
+`tls206_person_temp` P;
 
-ALTER TABLE `TLS206_PERSON_TEMP` ADD PRIMARY KEY (`person_id`);
+ALTER TABLE `tls206_person_temp` ADD PRIMARY KEY (`person_id`);
 
-ALTER TABLE `TLS206_PERSON_FULL` ADD PRIMARY KEY (`person_id`), 
+ALTER TABLE `tls206_person_full` ADD PRIMARY KEY (`person_id`),
       ADD INDEX ctry_code (`ctry_code` ASC), 
       ADD INDEX doc_sn_id (`doc_sn_id` ASC), 
       ADD INDEX appln_id (`appln_id` ASC);
