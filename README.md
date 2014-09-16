@@ -1,6 +1,7 @@
 Import script for PATSTAT
 =========================
 
+Compatible with version Spring 2014 (aka 2014a)
 
 
 Prerequisites
