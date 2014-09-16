@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS `TLS901_TECHN_FIELD_IPC` (
   PRIMARY KEY  (techn_field_nr, techn_sector, techn_field, ipc_maingroup_symbol)
 )
 ENGINE = MyISAM
-MAX_ROWS = 4500000
+MAX_ROWS = 1000
 AVG_ROW_LENGTH = 100
 DEFAULT CHARSET utf8 COLLATE utf8_unicode_ci;

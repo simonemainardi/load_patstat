@@ -22,7 +22,7 @@ CREATE TABLE `TLS206_PERSON_FULL` (
   state varchar(20) default '',
   zip_code varchar(25) default ''
 )
-MAX_ROWS = 41000000
+MAX_ROWS = 50000000
 ENGINE = MyISAM
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 

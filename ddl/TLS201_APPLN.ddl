@@ -17,5 +17,5 @@ INDEX `IX_appln_auth` (`appln_auth`,`appln_nr`,`appln_kind`),
 INDEX `IX_appln_filing_date` (`appln_filing_date`)
 )
 ENGINE = MyISAM
-MAX_ROWS = 76000000
+MAX_ROWS = 80000000
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;

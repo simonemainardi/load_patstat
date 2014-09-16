@@ -7,7 +7,7 @@ CREATE TABLE `TLS223_APPLN_DOCUS` (
   INDEX (`docus_class_symbol`)
 )
 ENGINE = MyISAM
-MAX_ROWS = 3700000
+MAX_ROWS = 40000000
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 

@@ -8,6 +8,6 @@ PRIMARY KEY (appln_id,jp_class_scheme,jp_class_symbol),
 INDEX (`jp_class_symbol`, `jp_class_scheme`)
 )
 ENGINE = MyISAM
-MAX_ROWS=295000000 
+MAX_ROWS=300000000
 CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 

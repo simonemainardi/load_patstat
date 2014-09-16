@@ -27,7 +27,7 @@ CREATE TABLE `TLS206_PERSON_TEMP` (
   name_address VARCHAR(439) default ''
 -- NAME_ADDRESS VARCHAR(442) default ''
 )
-MAX_ROWS = 41000000
+MAX_ROWS = 50000000
 ENGINE = MyISAM
 CHARACTER SET latin1 COLLATE latin1_general_ci;
 -- Achtung: input coding is latin1?!?
