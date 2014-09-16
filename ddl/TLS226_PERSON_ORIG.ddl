@@ -17,7 +17,8 @@ CREATE TABLE `TLS226_PERSON_ORIG` (
 	`person_ctry_code` char(2) NOT NULL DEFAULT '',
 	`residence_ctry_code` char(2) NOT NULL DEFAULT '',
 	`role` varchar(2) NOT NULL DEFAULT '',
-    PRIMARY KEY _p(person_orig_id)
+    PRIMARY KEY _p(person_orig_id),
+    INDEX (`person_id`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 48000000

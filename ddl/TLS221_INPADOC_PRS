@@ -28,7 +28,10 @@ CREATE TABLE IF NOT EXISTS `TLS221_INPADOC_PRS` (
 	l523ep date NOT NULL DEFAULT '9999-12-31',
 	l524ep varchar(100) NOT NULL DEFAULT '',
 	l525ep date NOT NULL DEFAULT '9999-12-31',
-	PRIMARY KEY(appln_id, prs_event_seq_nr)
+	PRIMARY KEY(appln_id, prs_event_seq_nr),
+	INDEX (`prs_gazette_date`, `appln_id`),
+	INDEX (`lec_id`, `appln_id`),
+	INDEX (`prs_code`, `appln_id`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 4500000

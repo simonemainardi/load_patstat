@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `TLS212_CITATION` (
   npl_citn_seq_nr smallint NOT NULL default '0',
   citn_gener_auth  CHAR NOT NULL default '',
   PRIMARY KEY  (pat_publn_id, citn_id),
-  INDEX (cited_pat_publn_id)
+  INDEX `IX_cited_pat_publn_id` (`cited_pat_publn_id`),
+  INDEX (`cited_appln_id` ASC, `pat_publn_id` ASC)
 )
 ENGINE = MyISAM
 MAX_ROWS = 140000000

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS  `TLS209_APPLN_IPC` (
 `ipc_position` char(1) NOT NULL default '',
 `ipc_gener_auth` char(2) NOT NULL default '',
 PRIMARY KEY  (`appln_id`,`ipc_class_symbol`,`ipc_class_level`),
-KEY `ipc_class_symbol` (`ipc_class_symbol`)
+INDEX `IX_ipc_class_symbol` (`ipc_class_symbol`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 178000000

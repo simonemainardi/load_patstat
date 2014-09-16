@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS  `TLS211_PAT_PUBLN` (
 `publn_first_grant` tinyint NOT NULL default '0',
 `publn_claims` smallint,
 PRIMARY KEY  (`pat_publn_id`),
-KEY `publn_auth` (`publn_auth`,`publn_nr`,`publn_kind`),
-KEY `appln_id` (`appln_id`),
-KEY `publn_date` (`publn_date`)
+KEY `IX_publn_auth` (`publn_auth` ASC, `publn_nr` ASC, `publn_kind` ASC),
+KEY `IX_appln_id` (`appln_id`),
+KEY `IX_publn_date` (`publn_date`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 82000000

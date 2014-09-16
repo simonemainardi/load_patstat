@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `TLS206_PERSON` (
   person_name VARCHAR(300) NOT NULL,
   person_address VARCHAR(1000) NOT NULL,
   PRIMARY KEY  (person_id),
-  INDEX (person_ctry_code)
+  INDEX `IX_person_ctry_code` (`person_ctry_code`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 4500000
