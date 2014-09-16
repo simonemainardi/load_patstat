@@ -2,15 +2,15 @@
 
 DROP TABLE IF EXISTS `TLS206_PERSON_FULL`;
 CREATE TABLE `TLS206_PERSON_FULL` (
-  person_id int(9) unsigned NOT NULL,
-  doc_sn_id int(9) unsigned NOT NULL,
-  appln_id int(9) unsigned NOT NULL,
+  person_id int unsigned NOT NULL,
+  doc_sn_id int unsigned NOT NULL,
+  appln_id int unsigned NOT NULL,
   wk_country CHAR(7) default '',
   wk_number CHAR(10) default '',
   wk_kind CHAR(2) default '',
   source CHAR(4) default '',
   a_i_flag CHAR(1) default '',
-  swq_nr int(4) unsigned default NULL,
+  seq_nr smallint unsigned default NULL,
   ctry_code CHAR(2) default '',
   nationality CHAR(2) default '',
   residence CHAR(2) default '',
@@ -28,8 +28,8 @@ CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 INSERT INTO `TLS206_PERSON_FULL`
 SELECT
-		P.person_id
-,		P.doc_sn_id
+  P.person_id
+, P.doc_sn_id
 ,		P.appln_id
 ,		P.wk_country
 ,		P.wk_number

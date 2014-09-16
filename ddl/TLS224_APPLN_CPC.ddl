@@ -1,7 +1,7 @@
 -- -*- mode: sql -*-
 DROP TABLE IF EXISTS `TLS224_APPLN_CPC`;
 CREATE TABLE `TLS222_APPLN_CPC` (
-  appln_id  int(10) unsigned NOT NULL,
+  appln_id  int NOT NULL default '0',
   	`cpc_class_symbol` VARCHAR(19) NOT NULL DEFAULT '',
 	`cpc_scheme` VARCHAR(5) NOT NULL DEFAULT '',
 	`cpc_version` DATE NOT NULL DEFAULT '9999-12-31',

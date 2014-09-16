@@ -4,9 +4,9 @@ DROP TABLE IF EXISTS `TLS206_PERSON_TEMP`;
 --
 --
 CREATE TABLE `TLS206_PERSON_TEMP` (
-  person_id int(9) unsigned NOT NULL,
-  doc_sn_id int(9) unsigned NOT NULL,
-  appln_id int(9) unsigned NOT NULL,
+  person_id int unsigned NOT NULL,
+  doc_sn_id int unsigned NOT NULL,
+  appln_id int unsigned NOT NULL,
   wk_country CHAR(7) default '',
   wk_number CHAR(10) default '',
   wk_kind CHAR(2) default '',

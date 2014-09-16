@@ -1,9 +1,8 @@
 -- -*- mode: sql -*-
 DROP TABLE IF EXISTS `TLS203_APPLN_ABSTR`;
 CREATE TABLE IF NOT EXISTS `TLS203_APPLN_ABSTR` (
-  appln_id int(10) NOT NULL default '0',
-  appln_abstract VARCHAR(4000) NOT NULL,
--- appln_abstract text          NOT NULL,  --< was
+  appln_id int NOT NULL default 0,
+  appln_abstract TEXT,
   PRIMARY KEY  (appln_id)
 )  
 MAX_ROWS = 34000000

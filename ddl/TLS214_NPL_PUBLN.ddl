@@ -1,9 +1,8 @@
 -- -*- mode: sql -*-
 DROP TABLE IF EXISTS `TLS214_NPL_PUBLN`;
 CREATE TABLE IF NOT EXISTS `TLS214_NPL_PUBLN` (
-  npl_publn_id int(10) NOT NULL default '0',
-  npl_biblio varchar(3000) NOT NULL,
--- npl_biblio text NOT NULL, --< was
+  npl_publn_id int NOT NULL default '0',
+  npl_biblio TEXT NOT NULL,
   PRIMARY KEY  (npl_publn_id)
 )
 ENGINE = MyISAM
