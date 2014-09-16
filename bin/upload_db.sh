@@ -241,6 +241,112 @@ count_table() {
 	echo $2 $WC
 }
 
+load_better_table() {
+	TIME=$(date '+%F %T %Z')
+	INTIME=$(date +%s)
+
+	sleep 1
+
+	if [ ! -d $ZIPARCHIVE/$RELEASE/$1 ]; then
+		echo ERROR: path $ZIPARCHIVE/$RELEASE/$1 does not exist
+		exit
+	fi
+
+	create_table $4
+
+	# FLUSH TABLES
+	echo FLUSH TABLES \; | $SENDSQL
+
+	# This removes all use of indexes for the table.
+	# An option value of 0 disables updates to all indexes, which can be used to get faster inserts.
+	$MYISAMCHK  --keys-used=0 -rq $MYSQLVARPATH/$DB/$4.MYI
+
+	if [ $5 == 'YES' ]; then 
+		echo ALTER TABLE $4 DISABLE KEYS\; | $SENDSQL ;
+	fi
+
+	echo TRUNCATE TABLE $4 \; | $SENDSQL ;
+
+
+	echo $TIME Loading data in $4 from $2 files 
+
+	# all files containing data for the current table
+	for ZIPPEDFILE in `find $LOADPATH/$RELEASE/$1 -name "$2_part*\.zip" | sort`
+	do
+	    echo loading part file $ZIPPEDFILE
+	    UNZIPPEDFILE=/dev/shm/`basename $ZIPPEDFILE`.txt
+
+            if [ $DEMO == 'YES' ]
+	    then
+                funzip $ZIPPEDFILE | head -n 100  > $UNZIPPEDFILE
+            else
+                funzip $ZIPPEDFILE  > $UNZIPPEDFILE		
+	    fi
+
+	    $SENDSQL <<EOF
+               set autocommit = 0;
+               set unique_checks = 0;
+               set foreign_key_checks = 0;
+               LOAD DATA LOCAL INFILE "$UNZIPPEDFILE" 
+               INTO TABLE $4 FIELDS TERMINATED BY "," 
+               OPTIONALLY ENCLOSED BY '"' 
+               LINES TERMINATED BY '\r\n' 
+               IGNORE 1 LINES;
+               commit;  
+               SHOW WARNINGS;
+EOF
+	    rm -rf $UNZIPPEDFILE
+	done
+
+	if [ $5 == 'YES' ]; then 
+	    echo ALTER TABLE $4 ENABLE KEYS \; | $SENDSQL ;
+	fi
+
+	# If you intend only to read from the table in the future, use myisampack to compress it. 
+	$MYISAMPACK $MYSQLVARPATH/$DB/$4.MYI
+
+	# Re-create the indexes
+	$MYISAMCHK  -rq $MYSQLVARPATH/$DB/$4.MYI
+
+	# FLUSH TABLES
+	echo FLUSH TABLES \; | $SENDSQL
+
+	count_table $@
+
+	OUTTIME=$(date +%s)
+	echo " $OUTTIME - $INTIME = "  $(( $OUTTIME - $INTIME )) sec " = " $(( ( $OUTTIME - $INTIME ) / 60 )) min
+
+}
+
+
+mk_op_2014a() {
+OP=$1
+    #Sector#File  #Parts    #Table                       #Disable_keys  # convert latin1->utf8  #CSV
+$OP Data tls201    4         tls201_appln                 YES            NO                      CSV
+$OP Data tls202    3         tls202_appln_title           NO             NO                      CSV
+$OP Data tls203    23        tls203_appln_abstr           NO             NO                      CSV
+$OP Data tls204    1         tls204_appln_prior           YES            NO                      CSV
+$OP Data tls205    1         tls205_tech_rel              NO             NO                      CSV
+$OP Data tls206    2        tls206_person                YES            NO                      CSV
+$OP Data tls207    2        tls207_pers_appln            YES            NO                      CSV
+$OP Data tls208    1         tls208_doc_std_nms           YES            NO                      CSV
+$OP Data tls209    6        tls209_appln_ipc             YES            NO                      CSV
+$OP Data tls210    1         tls210_appln_n_cls           NO             NO                      CSV
+$OP Data tls211    3         tls211_pat_publn             YES            NO                      CSV
+$OP Data tls212    6        tls212_citation              YES            NO                      CSV
+$OP Data tls214    2         tls214_npl_publn             NO             NO                      CSV
+$OP Data tls215    1         tls215_citn_categ            NO             NO                      CSV
+$OP Data tls216    1         tls216_appln_contn           NO             NO                      CSV
+# $OP Data tls217             tls217_appln_i_cls          NO             NO                      CSV
+$OP Data tls218    1         tls218_docdb_fam             NO             NO                      CSV
+$OP Data tls219    1         tls219_inpadoc_fam           NO             NO                      CSV
+$OP Data tls222    6        tls222_appln_jp_class         NO             NO                      CSV
+$OP Data tls223    1         tls223_appln_docus           NO             NO                      CSV
+$OP Data tls224    5         tls224_appln_cpc             NO             NO                      CSV
+$OP Data tls226    3         tls226_person_orig           NO             NO                      CSV
+$OP Data tls227    3         tls227_pers_publn            NO             NO                      CSV
+}
+
 mk_op_2013_09() {
 OP=$1
     #Sector#File  #Parts    #Table                       #Disable_keys  # convert latin1->utf8  #CSV
