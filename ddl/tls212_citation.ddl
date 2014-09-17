@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `tls212_citation` (
   pat_citn_seq_nr smallint NOT NULL default '0',
   npl_publn_id int NOT NULL default '0',
   npl_citn_seq_nr smallint NOT NULL default '0',
-  citn_gener_auth  CHAR NOT NULL default '',
+  citn_gener_auth  CHAR(2) NOT NULL default '',
   PRIMARY KEY  (pat_publn_id, citn_id),
   INDEX `IX_cited_pat_publn_id` (`cited_pat_publn_id`),
   INDEX (`cited_appln_id` ASC, `pat_publn_id` ASC)
