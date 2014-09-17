@@ -1,12 +1,9 @@
 #! /usr/bin/env bash
-set -x
+#set -x
 
 BASE=$(dirname $0)
 . $BASE/upload_db.sh
 
 create_db $DB
-
-mk_op_2013_09 load_table
-mk_tls206_ascii
-mk_op_2013_09 count_table
+mk_op_2014a load_table
 
