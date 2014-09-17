@@ -1,6 +1,6 @@
-export APPL=patstat
-export REL=09
-export YEAR=2013
+leexport APPL=patstat
+export REL=a
+export YEAR=2014
 export MYSQL="mysql --local-infile "
 export MYSQLADM=mysqladmin
 export MYSQLDUMP=mysqldump
