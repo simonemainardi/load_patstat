@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `tls206_country`;
-CREATE TABLE IF NOT EXISTS `tls206_country` (
+DROP TABLE IF EXISTS `tls801_country`;
+CREATE TABLE IF NOT EXISTS `tls801_country` (
   ctry_code varchar(2) NOT NULL default '',
   st3_name varchar(100) not null default '',
   state_indicator char(1) not null default '',
