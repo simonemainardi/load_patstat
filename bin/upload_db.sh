@@ -1,4 +1,4 @@
-! /bin/bash
+#!/usr/bin/env bash
 
 # Usage:
 #
@@ -9,6 +9,8 @@
 
 #set -x
 
+
+
 LSOF=$(lsof -p $$ | grep -E "/"$(basename $0)"$")
 MY_PATH=$(echo $LSOF | sed -r s/'^([^\/]+)\/'/'\/'/1 2>/dev/null)
 if [ $? -ne 0 ]; then
@@ -17,6 +19,8 @@ MY_PATH=$(echo $LSOF | sed -E s/'^([^\/]+)\/'/'\/'/1 2>/dev/null)
 fi
 BASE=$(dirname $MY_PATH)
 . $BASE/setup.sh
+
+echo demo is $DEMO
 
 export SENDSQL="$MYSQL -u$USER -p$PASS $DB"
 
@@ -73,12 +77,12 @@ load_table() {
 
             if [ $DEMO == 'YES' ]
 	    then
-                funzip $ZIPPEDFILE | head -n 100  > $UNZIPPEDFILE
+                funzip $ZIPPEDFILE | head -n 10000  > $UNZIPPEDFILE
             else
                 funzip $ZIPPEDFILE  > $UNZIPPEDFILE
 	    fi
 	    let "EXPECTED_ROWCOUNT = EXPECTED_ROWCOUNT + `awk 'END { print NR }' $UNZIPPEDFILE` - 1"
-	    echo $EXPECTED_ROWCOUNT
+#	    echo $EXPECTED_ROWCOUNT
 
 	    $SENDSQL <<EOF
                set autocommit = 0;
@@ -92,7 +96,7 @@ load_table() {
                commit;
                SHOW WARNINGS;
 EOF
-#	    rm -rf $UNZIPPEDFILE
+	    rm -rf $UNZIPPEDFILE
 	done
 
 	echo ALTER TABLE $3 ENABLE KEYS \; | $SENDSQL ;
@@ -111,7 +115,7 @@ EOF
 	OUTTIME=$(date +%s)
 	echo " $OUTTIME - $INTIME = "  $(( $OUTTIME - $INTIME )) sec " = " $(( ( $OUTTIME - $INTIME ) / 60 )) min
 
-	read -p 'waiting...'
+#	read -p 'waiting...'
 }
 
 
@@ -119,7 +123,6 @@ mk_op_2014a() {
 OP=$1
 $OP Data tls201   tls201_appln
 $OP Data tls202   tls202_appln_title
-$OP Data tls203   tls203_appln_abstr
 $OP Data tls204   tls204_appln_prior
 $OP Data tls205   tls205_tech_rel
 $OP Data tls206   tls206_person
@@ -134,7 +137,6 @@ $OP Data tls215   tls215_citn_categ
 $OP Data tls216   tls216_appln_contn
 $OP Data tls218   tls218_docdb_fam
 $OP Data tls219   tls219_inpadoc_fam
-$OP Data tls221   tls221_inpadoc_prs
 $OP Data tls222   tls222_appln_jp_class
 $OP Data tls223   tls223_appln_docus
 $OP Data tls224   tls224_appln_cpc
@@ -143,4 +145,9 @@ $OP Data tls227   tls227_pers_publn
 $OP Data tls801   tls801_country
 $OP Data tls802   tls802_legal_event_code
 $OP Data tls901   tls901_techn_field_ipc
+
+$OP Data tls203   tls203_appln_abstr
+$OP Data tls221   tls221_inpadoc_prs
 }
+
+
