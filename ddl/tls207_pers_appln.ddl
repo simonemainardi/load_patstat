@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `tls207_pers_appln` (
   appln_id int NOT NULL default '0',
   applt_seq_nr smallint NOT NULL default '0',
   invt_seq_nr smallint NOT NULL default '0',
-  PRIMARY KEY  (person_id, appln_id),
+  PRIMARY KEY  (person_id, appln_id, applt_seq_nr, invt_seq_nr),
   INDEX `IX_person_id`(`person_id`),
   INDEX `IX_appln_id` (`appln_id`)
 )
