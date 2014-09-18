@@ -38,8 +38,14 @@ send_ddl() {
 }
 
 create_table() {
-	# Crea la tabella
-	cat $DDL/$1.ddl | $SENDSQL
+    # $1 = table name
+    # $2 = partitioning YES or NO
+    # $3 = no. of partitions
+        cat $DDL/$1.ddl | $SENDSQL
+        if [ $2 == 'YES' ]
+	then
+	    echo ALTER TABLE $1 PARTITION BY KEY \(\) PARTITIONS $3 \; | $SENDSQL
+	fi
 }
 
 load_table() {
@@ -53,14 +59,14 @@ load_table() {
 		exit
 	fi
 
-	create_table $3
+	create_table $3 $4 $5  # table name ($3) and partitioning (yes or no $4) and no of partitions ($5)
 
 	# FLUSH TABLES
 	echo FLUSH TABLES \; | $SENDSQL
 
 	# This removes all use of indexes for the table.
 	# An option value of 0 disables updates to all indexes, which can be used to get faster inserts.
-	$MYISAMCHK  --keys-used=0 -rq $MYSQLVARPATH/$DB/$3.MYI
+	$MYISAMCHK  --keys-used=0 -rq $MYSQLVARPATH/$DB/$3*.MYI
 
 	echo ALTER TABLE $3 DISABLE KEYS\; | $SENDSQL ;
 	echo TRUNCATE TABLE $3 \; | $SENDSQL ;
@@ -120,10 +126,15 @@ EOF
 	echo ALTER TABLE $3 ENABLE KEYS \; | $SENDSQL ;
 
 	# If you intend only to read from the table in the future, use myisampack to compress it.
-	$MYISAMPACK $MYSQLVARPATH/$DB/$3.MYI
+	# only if it was not partitioned
+        if [ $4 != 'YES' ]
+	then
+	    echo "compressing"
+	    $MYISAMPACK $MYSQLVARPATH/$DB/$3.MYI
+	fi
 
 	# Re-create the indexes
-	$MYISAMCHK  -rq $MYSQLVARPATH/$DB/$3.MYI
+	$MYISAMCHK  -rq $MYSQLVARPATH/$DB/$3*.MYI
 
 	# FLUSH TABLES
 	echo FLUSH TABLES \; | $SENDSQL
@@ -133,39 +144,39 @@ EOF
 	OUTTIME=$(date +%s)
 	echo " $OUTTIME - $INTIME = "  $(( $OUTTIME - $INTIME )) sec " = " $(( ( $OUTTIME - $INTIME ) / 60 )) min
 
-#	read -p 'waiting...'
+	read -p 'waiting...'
 }
 
 
 mk_op_2014a() {
 OP=$1
-$OP Data tls201   tls201_appln
-$OP Data tls202   tls202_appln_title
-$OP Data tls204   tls204_appln_prior
-$OP Data tls205   tls205_tech_rel
-$OP Data tls206   tls206_person
-$OP Data tls207   tls207_pers_appln
-$OP Data tls208   tls208_doc_std_nms
-$OP Data tls209   tls209_appln_ipc
-$OP Data tls210   tls210_appln_n_cls
-$OP Data tls211   tls211_pat_publn
-$OP Data tls212   tls212_citation
-$OP Data tls214   tls214_npl_publn
-$OP Data tls215   tls215_citn_categ
-$OP Data tls216   tls216_appln_contn
-$OP Data tls218   tls218_docdb_fam
-$OP Data tls219   tls219_inpadoc_fam
-$OP Data tls222   tls222_appln_jp_class
-$OP Data tls223   tls223_appln_docus
-$OP Data tls224   tls224_appln_cpc
-$OP Data tls226   tls226_person_orig
-$OP Data tls227   tls227_pers_publn
-$OP Data tls801   tls801_country
-$OP Data tls802   tls802_legal_event_code
-$OP Data tls901   tls901_techn_field_ipc
-
-$OP Data tls203   tls203_appln_abstr
-$OP Data tls221   tls221_inpadoc_prs
+#operation #data_dir #file_prefix #table_name #partition  #no_of_partitions
+$OP Data tls201   tls201_appln                YES    16
+$OP Data tls202   tls202_appln_title          YES    16
+$OP Data tls204   tls204_appln_prior          YES    16
+$OP Data tls205   tls205_tech_rel             YES     8
+$OP Data tls206   tls206_person               YES    16
+$OP Data tls207   tls207_pers_appln           YES    32
+$OP Data tls208   tls208_doc_std_nms          YES    16
+$OP Data tls209   tls209_appln_ipc            YES    32
+$OP Data tls210   tls210_appln_n_cls          YES    16
+$OP Data tls211   tls211_pat_publn            YES    16
+$OP Data tls212   tls212_citation             YES    32
+$OP Data tls214   tls214_npl_publn            YES    16
+$OP Data tls215   tls215_citn_categ           YES    16
+$OP Data tls216   tls216_appln_contn          YES     8
+$OP Data tls218   tls218_docdb_fam            YES    16
+$OP Data tls219   tls219_inpadoc_fam          YES    16
+$OP Data tls222   tls222_appln_jp_class       YES    32
+$OP Data tls223   tls223_appln_docus          YES    16
+$OP Data tls224   tls224_appln_cpc            YES    32
+$OP Data tls226   tls226_person_orig          YES    16
+$OP Data tls227   tls227_pers_publn           YES    32
+$OP Data tls801   tls801_country              NO
+$OP Data tls802   tls802_legal_event_code     NO
+$OP Data tls901   tls901_techn_field_ipc      NO
+$OP Data tls203   tls203_appln_abstr          YES    16
+$OP Data tls221   tls221_inpadoc_prs          YES    32
 }
 
 
