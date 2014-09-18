@@ -144,7 +144,7 @@ EOF
 	OUTTIME=$(date +%s)
 	echo " $OUTTIME - $INTIME = "  $(( $OUTTIME - $INTIME )) sec " = " $(( ( $OUTTIME - $INTIME ) / 60 )) min
 
-	read -p 'waiting...'
+#	read -p 'waiting...'
 }
 
 
