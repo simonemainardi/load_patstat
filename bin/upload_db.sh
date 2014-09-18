@@ -70,6 +70,24 @@ load_table() {
 
 	# all files containing data for the current table
 	EXPECTED_ROWCOUNT=0
+	# some rows are buggy, that is, they contain a backslash just before the last double quote
+	# e.g.,
+	# 6597821,"US",664004,"CellTech Power, Inc.","Westboro,MA,\"
+	# so we must fix this and we use sed regexp replacement
+	# the original sed expr is
+	# sed -e 's/\\\("[^\"]$\)/\1/g'
+	# but we've to add some extra quotes in order to put the command in a shell variable
+	SED_FIX_1=`echo sed -e 's/\\\\\\("[^\"]$\\)/\1/g'`
+
+	# other rows are bugged as well since the cotain a backslash just before some double quote
+	# separating different columns
+	# e.g., 
+	# 8638854,"",4318,"BROTHER KOGYO KABUSHIKI KAISHA\",""
+	# so again we've to fix it using sed. The original sed expr used is:
+	#  sed -e 's/\\\(",\"\)/\1/g'
+	# the escaped expression is
+	SED_FIX_2=`echo sed -e 's/\\\\\\(",\"\\)/\1/g'`
+
 	for ZIPPEDFILE in `find $LOADPATH/$RELEASE/$1 -name "$2_part*\.zip" | sort`
 	do
 	    echo loading part file $ZIPPEDFILE
@@ -77,9 +95,9 @@ load_table() {
 
             if [ $DEMO == 'YES' ]
 	    then
-                funzip $ZIPPEDFILE | head -n 10000  > $UNZIPPEDFILE
+                funzip $ZIPPEDFILE | head -n 10000 | $SED_FIX_1 | $SED_FIX_2 > $UNZIPPEDFILE
             else
-                funzip $ZIPPEDFILE  > $UNZIPPEDFILE
+                funzip $ZIPPEDFILE | $SED_FIX_1 | $SED_FIX_2 > $UNZIPPEDFILE
 	    fi
 	    let "EXPECTED_ROWCOUNT = EXPECTED_ROWCOUNT + `awk 'END { print NR }' $UNZIPPEDFILE` - 1"
 #	    echo $EXPECTED_ROWCOUNT
