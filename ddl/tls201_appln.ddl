@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS  `tls201_appln` (
 PRIMARY KEY  (`appln_id`),
 INDEX `IX_internat_appln_id` (`internat_appln_id`),
 INDEX `IX_appln_auth` (`appln_auth`,`appln_nr`,`appln_kind`),
-INDEX `IX_appln_filing_date` (`appln_filing_date`)
+INDEX `IX_appln_filing_date` (`appln_filing_date`),
+INDEX `IX_appln_kind` (`appln_kind`)
 )
 ENGINE = MyISAM
 MAX_ROWS = 76000000
