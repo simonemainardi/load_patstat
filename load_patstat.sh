@@ -216,4 +216,4 @@ load_table tls802_legal_event_code
 load_table tls901_techn_field_ipc
 load_table tls203_appln_abstr
 load_table tls221_inpadoc_prs
-#load_table tls909_eee_ppat
+load_table tls909_eee_ppat
