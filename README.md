@@ -7,7 +7,7 @@ PATSTAT is shipped as a bunch of zipped, csv files spread across multiple DVDs. 
 
 This utility wants to make it easy for everyone to build a *PATSTAT MySQL* database from raw csv data. To achieve high-performances, database tables are compressed.
 
-Currenly, there is full compatibility with both version Spring and Autumn 2014, also known as 2014a and 2014b.
+Currently, there is full compatibility with both version Spring and Autumn 2014, also known as 2014a and 2014b.
 
 Prerequisites
 -------------
@@ -16,7 +16,7 @@ Every zipped file found in PATSTAT DVDs 1 to 3 should be copied into folder `dat
 Usage
 ------
 
-Run `load_patstat.sh` without parameters to display a brief help. Mandatory parameters are mysql_user and password, as well as hysql database host and name. Optionally, a `-v` may be passed to obtain a verbose output. For testing purposes one may want to pass the modifies `-t` that only loads small portions of zipped csv files.
+Run `load_patstat.sh` without parameters to display a brief help. Mandatory parameters are mysql_user and password, as well as MySQL database host and name. Optionally, a `-v` may be passed to obtain a verbose output. For testing purposes one may want to pass the modifier `-t` to only loads small portions of zipped csv files.
 
 ```
 $ ./load_patstat.sh
