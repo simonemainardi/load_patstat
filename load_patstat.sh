@@ -157,38 +157,6 @@ EOF
 #	read -p 'waiting...'
 }
 
-
-mk_op_2014a() {
-OP=$1
-#operation #data_dir #file_prefix #table_name #partition  #no_of_partitions
-$OP Data tls201   tls201_appln                NO    16
-$OP Data tls202   tls202_appln_title          NO    16
-$OP Data tls204   tls204_appln_prior          NO    16
-$OP Data tls205   tls205_tech_rel             NO     8
-$OP Data tls206   tls206_person               NO    16
-$OP Data tls207   tls207_pers_appln           NO    32
-$OP Data tls208   tls208_doc_std_nms          NO    16
-$OP Data tls209   tls209_appln_ipc            NO    32
-$OP Data tls210   tls210_appln_n_cls          NO    16
-$OP Data tls211   tls211_pat_publn            NO    16
-$OP Data tls212   tls212_citation             NO    32
-$OP Data tls214   tls214_npl_publn            NO    16
-$OP Data tls215   tls215_citn_categ           NO    16
-$OP Data tls216   tls216_appln_contn          NO     8
-$OP Data tls218   tls218_docdb_fam            NO    16
-$OP Data tls219   tls219_inpadoc_fam          NO    16
-$OP Data tls222   tls222_appln_jp_class       NO    32
-$OP Data tls223   tls223_appln_docus          NO    16
-$OP Data tls224   tls224_appln_cpc            NO    32
-$OP Data tls226   tls226_person_orig          NO    16
-$OP Data tls227   tls227_pers_publn           NO    32
-$OP Data tls801   tls801_country              NO
-$OP Data tls802   tls802_legal_event_code     NO
-$OP Data tls901   tls901_techn_field_ipc      NO
-$OP Data tls203   tls203_appln_abstr          NO    16
-$OP Data tls221   tls221_inpadoc_prs          NO    32
-}
-
 create_db
 load_table tls201_appln
 load_table tls202_appln_title
