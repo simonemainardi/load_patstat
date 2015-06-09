@@ -1,4 +1,0 @@
--- -*- mode: sql -*-
-DROP DATABASE IF EXISTS `%db`
-CREATE DATABASE `%db` 
-DEFAULT CHARSET=utf8;
