@@ -8,6 +8,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 MYSQLDATAPATH="/var/lib/mysql"
 ZIPFILESPATH="data"
 verbose=0
+normalized=0
 DEMO=0
 USER=
 PASS=
@@ -19,15 +20,18 @@ function show_help() {
     echo "Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname"
     echo "  -v: be verbose"
     echo "  -t: load small chunks of data for testing purposes"
+    echo "  -n: load normalized EEE PPAT person table"
 }
 
-while getopts "?vtu:p:d:h:m:" opt; do
+while getopts "?vntu:p:d:h:m:" opt; do
     case "$opt" in
     \?)
         show_help
 	exit 0
         ;;
     v)  verbose=1
+        ;;
+    n)  normalized=1
         ;;
     t)  DEMO=1
         ;;
@@ -157,7 +161,10 @@ EOF
 #	read -p 'waiting...'
 }
 
+# creates an empty database schema
 create_db
+
+# loads official patstat tables
 load_table tls201_appln
 load_table tls202_appln_title
 load_table tls204_appln_prior
@@ -184,4 +191,16 @@ load_table tls802_legal_event_code
 load_table tls901_techn_field_ipc
 load_table tls203_appln_abstr
 load_table tls221_inpadoc_prs
-load_table tls909_eee_ppat
+
+# possibly loads normalized EEE PPAT person table
+if [ $normalized -eq 1 ]
+then
+    load_table tls909_eee_ppat
+fi
+
+# finally, prints out some statistics on loaded tables
+$SENDSQL <<EOF
+SELECT table_name, table_rows
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = '$DB';
+EOF
