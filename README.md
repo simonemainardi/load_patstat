@@ -9,9 +9,15 @@ This utility wants to make it easy for everyone to build a *PATSTAT MySQL* datab
 
 Currently, there is full compatibility with both version Spring and Autumn 2014, also known as 2014a and 2014b.
 
+The utility is also capable of loading the standardized EEE-PPAT person table with harmonized assignee names and assignee sector allocations (https://www.ecoom.be/en/EEE-PPAT).
+
 Prerequisites
 -------------
 Every zipped file found in PATSTAT DVDs 1 to 3 should be copied into folder `data`. TLS221_INPADOC_PRS DVD zipped table may be copied there as well.
+
+#### Stantardized EEE-PPAT person table
+EEE-PPAT stantardized person table can be downloaded using the link shipped with official PATSTAT documentation. Typically this table is bundled in a zip file (e.g., `EEE_PPAT_2014a.zip`) together with a leaflet and release notes.
+To import the standardized table, the csv dump found in the zip package (e.g., `EEE_PPAT_April2014.csv`) should be copied into folder `data` and *renamed* to `tls909_part01.zip`. Imported data will be stored into `tls909_eee_ppat` database table.
 
 Usage
 ------
@@ -23,22 +29,23 @@ $ ./load_patstat.sh
 Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname
   -v: be verbose
   -t: load small chunks of data for testing purposes
+  -n: load normalized EEE PPAT person table
 
 ```
 
 Examples
 --------
-Load a **test** PASTSTAT database into a MySQL database on `localhost` named `patstat2014b` -- note the `-t` modifier.
+Load a **test** PASTSTAT database and the standardized person table into a MySQL database on `localhost` named `patstat2014b` -- note the `-t` modifier.
 
 ```
-$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -t
+$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -t -n
 
 ```
 
-Load a **full** PATSTAT database into a `localhost` MySQL database `patstat2014b`.
+Load a **full** PATSTAT database and the standardized person table into a `localhost` MySQL database `patstat2014b`.
 
 ```
-$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b
+$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -n
 
 ```
 
