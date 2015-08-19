@@ -7,6 +7,7 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 # Initialize our own variables:
 MYSQLDATAPATH="/var/lib/mysql"
 ZIPFILESPATH="data"
+LOGPATH=./
 verbose=0
 normalized=0
 DEMO=0
@@ -21,9 +22,10 @@ function show_help() {
     echo "  -v: be verbose"
     echo "  -t: load small chunks of data for testing purposes"
     echo "  -n: load normalized EEE PPAT person table"
+    echo "  -o: output and error logs directory (defaults to ./)"
 }
 
-while getopts "?vntu:p:d:h:m:" opt; do
+while getopts "?vnto:u:p:d:h:m:" opt; do
     case "$opt" in
     \?)
         show_help
@@ -32,6 +34,8 @@ while getopts "?vntu:p:d:h:m:" opt; do
     v)  verbose=1
         ;;
     n)  normalized=1
+        ;;
+    o)  LOGPATH=$OPTARG
         ;;
     t)  DEMO=1
         ;;
@@ -161,46 +165,54 @@ EOF
 #	read -p 'waiting...'
 }
 
-# creates an empty database schema
-create_db
+function main(){
+    # creates an empty database schema
+    create_db
 
-# loads official patstat tables
-load_table tls201_appln
-load_table tls202_appln_title
-load_table tls204_appln_prior
-load_table tls205_tech_rel
-load_table tls206_person
-load_table tls207_pers_appln
-load_table tls208_doc_std_nms
-load_table tls209_appln_ipc
-load_table tls210_appln_n_cls
-load_table tls211_pat_publn
-load_table tls212_citation
-load_table tls214_npl_publn
-load_table tls215_citn_categ
-load_table tls216_appln_contn
-load_table tls218_docdb_fam
-load_table tls219_inpadoc_fam
-load_table tls222_appln_jp_class
-load_table tls223_appln_docus
-load_table tls224_appln_cpc
-load_table tls226_person_orig
-load_table tls227_pers_publn
-load_table tls801_country
-load_table tls802_legal_event_code
-load_table tls901_techn_field_ipc
-load_table tls203_appln_abstr
-load_table tls221_inpadoc_prs
+    # loads official patstat tables
+    load_table tls201_appln
+    load_table tls202_appln_title
+    load_table tls204_appln_prior
+    load_table tls205_tech_rel
+    load_table tls206_person
+    load_table tls207_pers_appln
+    load_table tls208_doc_std_nms
+    load_table tls209_appln_ipc
+    load_table tls210_appln_n_cls
+    load_table tls211_pat_publn
+    load_table tls212_citation
+    load_table tls214_npl_publn
+    load_table tls215_citn_categ
+    load_table tls216_appln_contn
+    load_table tls218_docdb_fam
+    load_table tls219_inpadoc_fam
+    load_table tls222_appln_jp_class
+    load_table tls223_appln_docus
+    load_table tls224_appln_cpc
+    load_table tls226_person_orig
+    load_table tls227_pers_publn
+    load_table tls801_country
+    load_table tls802_legal_event_code
+    load_table tls901_techn_field_ipc
+    load_table tls203_appln_abstr
+    load_table tls221_inpadoc_prs
 
-# possibly loads normalized EEE PPAT person table
-if [ $normalized -eq 1 ]
-then
-    load_table tls909_eee_ppat
-fi
+    # possibly loads normalized EEE PPAT person table
+    if [ $normalized -eq 1 ]
+    then
+	load_table tls909_eee_ppat
+    fi
 
-# finally, prints out some statistics on loaded tables
-$SENDSQL <<EOF
+    # finally, prints out some statistics on loaded tables
+    $SENDSQL <<EOF
 SELECT table_name, table_rows
 FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_SCHEMA = '$DB';
+WHERE TABLE_SCHEMA = '$DB'
+;
 EOF
+}
+
+tstamp=`date +"%Y-%m-%d.%H:%M"`
+
+# call the main function and record both std out and std err
+main 2> $LOGPATH/error_log_$tstamp > $LOGPATH/output_log_$tstamp
