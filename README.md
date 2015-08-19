@@ -22,7 +22,7 @@ To import the standardized table, the csv dump found in the zip package (e.g., `
 Usage
 ------
 
-Run `load_patstat.sh` without parameters to display a brief help. Mandatory parameters are mysql_user and password, as well as MySQL database host and name. Optionally, a `-v` may be passed to obtain a verbose output. For testing purposes one may want to pass the modifier `-t` to only loads small portions of zipped csv files.
+Run `load_patstat.sh` without parameters to display a brief help. Mandatory parameters are mysql_user and password, as well as MySQL database host and name. Optionally, a `-v` may be passed to obtain a verbose output. For testing purposes one may want to pass the modifier `-t` to only loads small portions of zipped csv files. Output and error logs are written to `output_log_YYYY-MM-DD.HH:MM` and `error_log_YYYY-MM-DD.HH:MM` in the current workind directory. One may specify a different directory using the modifier `-o`.
 
 ```
 $ ./load_patstat.sh
@@ -30,6 +30,7 @@ Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname
   -v: be verbose
   -t: load small chunks of data for testing purposes
   -n: load normalized EEE PPAT person table
+  -o: output and error logs directory (defaults to ./)
 
 ```
 
