@@ -67,10 +67,11 @@ CREATE TABLE tls205_tech_rel (
 
 CREATE TABLE tls206_person (
   person_id int(11) NOT NULL DEFAULT '0',
-  person_ctry_code char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  doc_std_name_id int(11) NOT NULL DEFAULT '0',
   person_name varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   person_address varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  person_ctry_code char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  doc_std_name_id int(11) NOT NULL DEFAULT '0',
+  doc_std_name varchar(500) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (person_id),
   KEY IX_person_ctry_code (person_ctry_code),
   KEY IX_doc_std_name_id (doc_std_name_id)
@@ -86,15 +87,6 @@ CREATE TABLE tls207_pers_appln (
   PRIMARY KEY (person_id,appln_id,applt_seq_nr,invt_seq_nr),
   KEY IX_person_id (person_id),
   KEY IX_appln_id (appln_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-
-
-CREATE TABLE tls208_doc_std_nms (
-  doc_std_name_id int(11) NOT NULL DEFAULT '0',
-  doc_std_name varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (doc_std_name_id),
-  KEY IX_doc_std_name (doc_std_name)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 
@@ -310,8 +302,29 @@ CREATE TABLE tls227_pers_publn (
 
 
 
+CREATE TABLE tls228_docdb_fam_citn (
+  docdb_family_id int(11) NOT NULL DEFAULT '0',
+  cited_docdb_family_id int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (docdb_family_id,cited_docdb_family_id),
+  KEY docdb_family_id (docdb_family_id),
+  KEY cited_docdb_family_id (cited_docdb_family_id)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
+
+CREATE TABLE tls229_appln_nace2 (
+  appln_id int(11) NOT NULL DEFAULT '0',
+  nace2_code char(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  weight float NOT NULL DEFAULT '1',
+  PRIMARY KEY (appln_id,nace2_code),
+  KEY nace2_code (nace2_code)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
+
 CREATE TABLE tls801_country (
   ctry_code varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  iso_alpha3 varchar(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   st3_name varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   state_indicator char(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   continent varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -341,11 +354,51 @@ CREATE TABLE tls802_legal_event_code (
 
 
 CREATE TABLE tls901_techn_field_ipc (
+  ipc_maingroup_symbol varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   techn_field_nr tinyint(4) NOT NULL DEFAULT '0',
   techn_sector varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   techn_field varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  ipc_maingroup_symbol varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (techn_field_nr,techn_sector,techn_field,ipc_maingroup_symbol)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=100;
+
+
+
+CREATE TABLE tls902_ipc_nace2 (
+  ipc varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  not_with_ipc varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  unless_with_ipc varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  nace2_code char(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  nace2_weight float NOT NULL DEFAULT '1',
+  nace2_descr varchar(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (ipc,not_with_ipc,unless_with_ipc,nace2_code)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
+
+CREATE TABLE tls906_person (
+  person_id int(11) NOT NULL DEFAULT '0',
+  person_name varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  person_address varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
+  person_ctry_code char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  doc_std_name_id int(11) NOT NULL DEFAULT '0',
+  doc_std_name varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  hrm_l2_id int(11) NOT NULL DEFAULT '0',
+  hrm_l1 varchar(400) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  hrm_l2 varchar(400) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  hrm_level tinyint(4) NOT NULL DEFAULT '0',
+  sector varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  han_id int(11) NOT NULL DEFAULT '0',
+  han_name varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  han_harmonized int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (person_id),
+  KEY IX_ppat_person_ctry_code (person_ctry_code),
+  KEY IX_ppat_hrm_l1 (hrm_l1(333)),
+  KEY IX_ppat_hrm_l2 (hrm_l2(333)),
+  KEY IX_ppat_sector (sector),
+  KEY IX_ppat_hrm_l2_id (hrm_l2_id),
+  KEY IX_ppat_han_id (han_id),
+  KEY IX_han_name (han_name(333)),
+  KEY IX_han_harmonized (han_harmonized)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=100;
 
 

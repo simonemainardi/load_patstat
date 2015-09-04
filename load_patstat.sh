@@ -9,7 +9,6 @@ MYSQLDATAPATH="/var/lib/mysql"
 ZIPFILESPATH="data"
 LOGPATH=./
 verbose=0
-normalized=0
 DEMO=0
 USER=
 PASS=
@@ -18,22 +17,20 @@ DB=
 
 
 function show_help() {
-    echo "Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname"
+    echo "Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname -z patstat_zips_dir"
     echo "  -v: be verbose"
     echo "  -t: load small chunks of data for testing purposes"
-    echo "  -n: load normalized EEE PPAT person table"
+    echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to ./data)"
     echo "  -o: output and error logs directory (defaults to ./)"
 }
 
-while getopts "?vnto:u:p:d:h:m:" opt; do
+while getopts "?vto:u:p:d:h:z:m:" opt; do
     case "$opt" in
     \?)
         show_help
 	exit 0
         ;;
     v)  verbose=1
-        ;;
-    n)  normalized=1
         ;;
     o)  LOGPATH=$OPTARG
         ;;
@@ -47,6 +44,8 @@ while getopts "?vnto:u:p:d:h:m:" opt; do
 	;;
     d)  DB=$OPTARG
 	;;
+    z)  ZIPFILESPATH=$OPTARG
+	;;
     esac
 done
 
@@ -55,7 +54,7 @@ shift $((OPTIND-1))
 
 [ "$1" = "--" ] && shift
 
-if [[ -z $USER ]] || [[ -z $PASS ]] || [[ -z $HOST ]] || [[ -z $DB ]]
+if [[ -z $USER ]] || [[ -z $PASS ]] || [[ -z $HOST ]] || [[ -z $DB ]] || [[ -z $ZIPFILESPATH ]]
 then
      show_help 
      exit 1
@@ -64,6 +63,7 @@ fi
 if [[ ! $verbose -eq 0 ]]
 then
     echo "user: $USER pass: $PASS host: $HOST database: $DB"
+    echo "zipped files path: $ZIPFILESPATH"
     echo "verbose=$verbose, test=$DEMO leftovers: $@"
 fi
 
@@ -175,8 +175,8 @@ function main(){
     load_table tls204_appln_prior
     load_table tls205_tech_rel
     load_table tls206_person
+    load_table tls906_person  # this is person table with harmonized names
     load_table tls207_pers_appln
-    load_table tls208_doc_std_nms
     load_table tls209_appln_ipc
     load_table tls210_appln_n_cls
     load_table tls211_pat_publn
@@ -191,17 +191,14 @@ function main(){
     load_table tls224_appln_cpc
     load_table tls226_person_orig
     load_table tls227_pers_publn
+    load_table tls228_docdb_fam_citn
+    load_table tls229_appln_nace2
     load_table tls801_country
     load_table tls802_legal_event_code
     load_table tls901_techn_field_ipc
+    load_table tls902_ipc_nace2
     load_table tls203_appln_abstr
     load_table tls221_inpadoc_prs
-
-    # possibly loads normalized EEE PPAT person table
-    if [ $normalized -eq 1 ]
-    then
-	load_table tls909_eee_ppat
-    fi
 
     # finally, prints out some statistics on loaded tables
     $SENDSQL <<EOF

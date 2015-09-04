@@ -7,17 +7,14 @@ PATSTAT is shipped as a bunch of zipped, csv files spread across multiple DVDs. 
 
 This utility wants to make it easy for everyone to build a *PATSTAT MySQL* database from raw csv data. To achieve high-performances, database tables are compressed.
 
-Currently, there is full compatibility with both version Spring and Autumn 2014, also known as 2014a and 2014b.
+Currently, there is full compatibility with version Spring 2015, also known as 2015a.
 
-The utility is also capable of loading the standardized EEE-PPAT person table with harmonized assignee names and assignee sector allocations (https://www.ecoom.be/en/EEE-PPAT).
+The utility is also capable of loading the standardized EEE-PPAT person table with harmonized assignee names and assignee sector allocations (https://www.ecoom.be/en/EEE-PPAT). This table has been officially included in version 2015a.
 
 Prerequisites
 -------------
-Every zipped file found in PATSTAT DVDs 1 to 3 should be copied into folder `data`. TLS221_INPADOC_PRS DVD zipped table may be copied there as well.
+Every zipped table file `tlsXXX_partYY.zip` found in PATSTAT DVDs should be copied into a single folder. TLS221_INPADOC_PRS DVD zipped table may be copied there as well.
 
-#### Stantardized EEE-PPAT person table
-EEE-PPAT stantardized person table can be downloaded using the link shipped with official PATSTAT documentation. Typically this table is bundled in a zip file (e.g., `EEE_PPAT_2014a.zip`) together with a leaflet and release notes.
-To import the standardized table, the csv dump found in the zip package (e.g., `EEE_PPAT_April2014.csv`) should be copied into folder `data` and *renamed* to `tls909_part01.zip`. Imported data will be stored into `tls909_eee_ppat` database table.
 
 Usage
 ------
@@ -26,24 +23,24 @@ Run `load_patstat.sh` without parameters to display a brief help. Mandatory para
 
 ```
 $ ./load_patstat.sh
-Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname
+Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname -z patstat_zips_dir
   -v: be verbose
   -t: load small chunks of data for testing purposes
-  -n: load normalized EEE PPAT person table
+  -z: directory containing patstat zipped files shipped in DVDs (defaults to ./data)
   -o: output and error logs directory (defaults to ./)
 
 ```
 
 Examples
 --------
-Load a **test** PASTSTAT database and the standardized person table into a MySQL database on `localhost` named `patstat2014b` -- note the `-t` modifier.
+Load a **test** PASTSTAT database and the standardized person table into a MySQL database on `localhost` named `patstat2014b` -- note the `-t` modifier. Zipped table files have been placed into the default folder `./data`.
 
 ```
 $ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -t -n
 
 ```
 
-Load a **full** PATSTAT database and the standardized person table into a `localhost` MySQL database `patstat2014b`.
+Load a **full** PATSTAT database and the standardized person table into a `localhost` MySQL database `patstat2014b`. Again, zipped table files have been placed into the default folder `./data`.
 
 ```
 $ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -n
