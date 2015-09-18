@@ -214,16 +214,36 @@ tstamp=`date +"%Y-%m-%d"`
 # call the main function and record both std out and std err
 main 2> $LOGPATH/error_log_$tstamp > $LOGPATH/output_log_$tstamp
 
+
 # check of errors
 errlines=`wc -l $LOGPATH/error_log_$tstamp | cut -d' ' -f1`
-if [ $errlines -lt 3 ]
+if [ $errlines -gt 0 ] 
 then
-    echo "THE FOLLOWING ERRORS HAVE BEEN DETECTED: "
-    cat $LOGPATH/error_log_$tstamp
-else
-    echo "SOME ERRORS OCCURRED."
-    echo "IT MAY BE SAFE TO IGNORE THEM, BUT PLEASE CHECK FILE $LOGPATH/error_log_$tstamp"
+    if [ $errlines -le 3 ]
+    then
+	echo "THE FOLLOWING ERRORS HAVE BEEN DETECTED: "
+	cat $LOGPATH/error_log_$tstamp
+    else
+	echo "SOME ERRORS OCCURRED."
+	echo "IT MAY BE SAFE TO IGNORE THEM, BUT PLEASE CHECK FILE $LOGPATH/error_log_$tstamp"
+    fi
+echo
 fi
+
+# check for warnings
+warnlines=`cat $LOGPATH/output_log_$tstamp | grep Warning | wc -l`
+if [ $warnlines -gt 0 ]
+then
+    if [ $warnlines -lt 10 ]
+    then
+	echo "THE FOLLOWING MySQL WARNINGS HAVE BEEN GENERATED: "
+	cat cat $LOGPATH/output_log_$tstamp | grep Warning
+    else
+	echo "SOME MySQL WARNINGS HAVE BEEN GENERATED."
+	echo "IT MAY BE SAFE TO IGNORE THEM, BUT PLEASE CHECK FILE $LOGPATH/output_log_$tstamp"
+    fi
+fi
+
 echo
 echo "CREATED TABLES HAVE THE FOLLOWING NUMBERS OF ROWS"
 echo "PLEASE CHECK THEM AGAINST PATSTAT DOCUMENTATION"
