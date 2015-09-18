@@ -6,8 +6,8 @@ OPTIND=1         # Reset in case getopts has been used previously in the shell.
 
 # Initialize our own variables:
 MYSQLDATAPATH="/var/lib/mysql"
-ZIPFILESPATH="data"
-LOGPATH=./
+ZIPFILESPATH=./data
+LOGPATH=./logs
 verbose=0
 DEMO=0
 USER=
@@ -20,8 +20,8 @@ function show_help() {
     echo "Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname -z patstat_zips_dir"
     echo "  -v: be verbose"
     echo "  -t: load small chunks of data for testing purposes"
-    echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to ./data)"
-    echo "  -o: output and error logs directory (defaults to ./)"
+    echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to $ZIPFILESPATH)"
+    echo "  -o: output and error logs directory (defaults to $LOGPATH)"
 }
 
 while getopts "?vto:u:p:d:h:z:m:" opt; do
@@ -209,7 +209,23 @@ WHERE TABLE_SCHEMA = '$DB'
 EOF
 }
 
-tstamp=`date +"%Y-%m-%d.%H:%M"`
+tstamp=`date +"%Y-%m-%d"`
 
 # call the main function and record both std out and std err
 main 2> $LOGPATH/error_log_$tstamp > $LOGPATH/output_log_$tstamp
+
+# check of errors
+errlines=`wc -l $LOGPATH/error_log_$tstamp | cut -d' ' -f1`
+if [ $errlines -lt 3 ]
+then
+    echo "THE FOLLOWING ERRORS HAVE BEEN DETECTED: "
+    cat $LOGPATH/error_log_$tstamp
+else
+    echo "SOME ERRORS OCCURRED."
+    echo "IT MAY BE SAFE TO IGNORE THEM, BUT PLEASE CHECK FILE $LOGPATH/error_log_$tstamp"
+fi
+echo
+echo "CREATED TABLES HAVE THE FOLLOWING NUMBERS OF ROWS"
+echo "PLEASE CHECK THEM AGAINST PATSTAT DOCUMENTATION"
+# output table counters to console
+grep -E "^tls.*$" $LOGPATH/output_log_$tstamp
