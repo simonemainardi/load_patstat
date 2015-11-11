@@ -311,6 +311,15 @@ CREATE TABLE tls229_appln_nace2 (
 
 
 
+CREATE TABLE tls230_appln_techn_field (
+  appln_id int(11) NOT NULL DEFAULT '0',
+  techn_field_nr tinyint NOT NULL DEFAULT '0',
+  weight float NOT NULL DEFAULT '1',
+  PRIMARY KEY (appln_id,techn_field_nr)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
+
 CREATE TABLE tls801_country (
   ctry_code varchar(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   iso_alpha3 varchar(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
