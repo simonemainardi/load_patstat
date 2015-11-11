@@ -33,6 +33,7 @@ CREATE TABLE tls201_appln (
 
 CREATE TABLE tls202_appln_title (
   appln_id int(11) NOT NULL DEFAULT '0',
+  appln_title_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_title text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (appln_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=600;
@@ -41,6 +42,7 @@ CREATE TABLE tls202_appln_title (
 
 CREATE TABLE tls203_appln_abstr (
   appln_id int(11) NOT NULL DEFAULT '0',
+  appln_abstract_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_abstract text COLLATE utf8_unicode_ci,
   PRIMARY KEY (appln_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=800;
