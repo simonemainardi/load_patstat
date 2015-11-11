@@ -182,24 +182,6 @@ CREATE TABLE tls216_appln_contn (
 
 
 
-CREATE TABLE tls218_docdb_fam (
-  appln_id int(11) NOT NULL DEFAULT '0',
-  docdb_family_id int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (appln_id,docdb_family_id),
-  KEY docdb_family_id (docdb_family_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-
-
-CREATE TABLE tls219_inpadoc_fam (
-  appln_id int(11) NOT NULL DEFAULT '0',
-  inpadoc_family_id int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (appln_id),
-  KEY inpadoc_family_id (inpadoc_family_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-
-
 CREATE TABLE tls221_inpadoc_prs (
   appln_id int(11) NOT NULL DEFAULT '0',
   prs_event_seq_nr smallint(6) NOT NULL DEFAULT '0',
