@@ -33,6 +33,7 @@ CREATE TABLE tls201_appln (
 
 CREATE TABLE tls202_appln_title (
   appln_id int(11) NOT NULL DEFAULT '0',
+  appln_title_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_title text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (appln_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=600;
@@ -41,6 +42,7 @@ CREATE TABLE tls202_appln_title (
 
 CREATE TABLE tls203_appln_abstr (
   appln_id int(11) NOT NULL DEFAULT '0',
+  appln_abstract_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_abstract text COLLATE utf8_unicode_ci,
   PRIMARY KEY (appln_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=800;
@@ -180,24 +182,6 @@ CREATE TABLE tls216_appln_contn (
 
 
 
-CREATE TABLE tls218_docdb_fam (
-  appln_id int(11) NOT NULL DEFAULT '0',
-  docdb_family_id int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (appln_id,docdb_family_id),
-  KEY docdb_family_id (docdb_family_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-
-
-CREATE TABLE tls219_inpadoc_fam (
-  appln_id int(11) NOT NULL DEFAULT '0',
-  inpadoc_family_id int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (appln_id),
-  KEY inpadoc_family_id (inpadoc_family_id)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
-
-
-
 CREATE TABLE tls221_inpadoc_prs (
   appln_id int(11) NOT NULL DEFAULT '0',
   prs_event_seq_nr smallint(6) NOT NULL DEFAULT '0',
@@ -277,6 +261,11 @@ CREATE TABLE tls226_person_orig (
   first_name varchar(200) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   middle_name varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   address_freeform varchar(1000) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  address_1 varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  address_2 varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  address_3 varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  address_4 varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  address_5 varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   street varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   city varchar(200) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   zip_code varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
@@ -318,6 +307,15 @@ CREATE TABLE tls229_appln_nace2 (
   weight float NOT NULL DEFAULT '1',
   PRIMARY KEY (appln_id,nace2_code),
   KEY nace2_code (nace2_code)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
+
+
+
+CREATE TABLE tls230_appln_techn_field (
+  appln_id int(11) NOT NULL DEFAULT '0',
+  techn_field_nr tinyint NOT NULL DEFAULT '0',
+  weight float NOT NULL DEFAULT '1',
+  PRIMARY KEY (appln_id,techn_field_nr)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 
