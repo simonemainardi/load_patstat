@@ -107,10 +107,11 @@ load_table() {
 	# separating different columns
 	# e.g., 
 	# 8638854,"",4318,"BROTHER KOGYO KABUSHIKI KAISHA\",""
+    # ... ,"COMPANY",108638854,"BROTHER KOGYO KABUSHIKI KAISHA\",0
 	# so again we've to fix it using sed. The original sed expr used is:
-	#  sed -e 's/\\\(",\"\)/\1/g'
+	#  sed -e 's/\\\(",[0-9\"]\)/\1/g'
 	# the escaped expression is
-	SED_FIX_2=`echo sed -e 's/\\\\\\(",\"\\)/\1/g'`
+	SED_FIX_2=`echo sed -e 's/\\\\\\(",[0-9\"]\\)/\1/g'`
 
 	prefix=$(echo $1 | cut -d'_' -f 1)  # grab only the prefix, e.g. tls201, from the full table name
 	for ZIPPEDFILE in `find $ZIPFILESPATH -name "$prefix\_part*\.zip" | sort`
@@ -184,8 +185,6 @@ function main(){
     load_table tls214_npl_publn
     load_table tls215_citn_categ
     load_table tls216_appln_contn
-    load_table tls218_docdb_fam
-    load_table tls219_inpadoc_fam
     load_table tls222_appln_jp_class
     load_table tls223_appln_docus
     load_table tls224_appln_cpc
@@ -193,6 +192,7 @@ function main(){
     load_table tls227_pers_publn
     load_table tls228_docdb_fam_citn
     load_table tls229_appln_nace2
+    load_table tls230_appln_techn_field
     load_table tls801_country
     load_table tls802_legal_event_code
     load_table tls901_techn_field_ipc

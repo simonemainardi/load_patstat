@@ -17,16 +17,30 @@ CREATE TABLE tls201_appln (
   appln_nr varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_kind char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '00',
   appln_filing_date date NOT NULL DEFAULT '9999-12-31',
+  appln_filing_year smallint NOT NULL DEFAULT '9999',
   appln_nr_epodoc varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   ipr_type char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  appln_title_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  appln_abstract_lg char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   internat_appln_id int(11) NOT NULL DEFAULT '0',
+  earliest_filing_date date NOT NULL DEFAULT '9999-12-31',
+  earliest_filing_year smallint NOT NULL DEFAULT '9999',
+  earliest_filing_id int NOT NULL DEFAULT '0',
+  earliest_publn_date date NOT NULL DEFAULT '9999-12-31',
+  earliest_publn_year smallint NOT NULL DEFAULT '9999',
+  earliest_pat_publn_id int NOT NULL DEFAULT '0',
+  granted tinyint NOT NULL default '0',
+  docdb_family_id int NOT NULL DEFAULT '0',
+  inpadoc_family_id int NOT NULL DEFAULT '0',
+  docdb_family_size smallint NOT NULL default '0',
+  nb_citing_docdb_fam smallint NOT NULL default '0',
+  nb_applicants smallint NOT NULL default '0',
+  nb_inventors smallint NOT NULL default '0',
   PRIMARY KEY (appln_id),
   KEY IX_internat_appln_id (internat_appln_id),
   KEY IX_appln_auth (appln_auth,appln_nr,appln_kind),
   KEY IX_appln_filing_date (appln_filing_date),
-  KEY IX_appln_kind (appln_kind)
+  KEY IX_appln_kind (appln_kind),
+  KEY IX_docdb_family_id (docdb_family_id),
+  KEY IX_inpadoc_family_id (inpadoc_family_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 
 
