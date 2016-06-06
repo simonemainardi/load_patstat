@@ -163,8 +163,8 @@ CREATE TABLE tls212_citation (
   citn_origin char(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   cited_pat_publn_id int(11) NOT NULL DEFAULT '0',
   cited_appln_id int(10) unsigned NOT NULL DEFAULT '0',
+  cited_npl_publn_id int(11) NOT NULL DEFAULT '0',
   pat_citn_seq_nr smallint(6) NOT NULL DEFAULT '0',
-  npl_publn_id int(11) NOT NULL DEFAULT '0',
   npl_citn_seq_nr smallint(6) NOT NULL DEFAULT '0',
   citn_gener_auth char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (pat_publn_id,citn_id),
@@ -172,7 +172,7 @@ CREATE TABLE tls212_citation (
   KEY cited_appln_id (cited_appln_id,pat_publn_id),
   KEY IX_pat_citn_seq_nr (pat_citn_seq_nr),
   KEY IX_npl_citn_seq_nr (npl_citn_seq_nr),
-  KEY IX_npl_publn_id (npl_publn_id),
+  KEY IX_cited_npl_publn_id (cited_npl_publn_id),
   KEY IX_cited_pub_seq_nr (cited_pat_publn_id,pat_citn_seq_nr),
   KEY IX_cited_app_seq_nr (cited_appln_id,pat_citn_seq_nr)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  PACK_KEYS=0;
