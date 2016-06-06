@@ -181,6 +181,7 @@ CREATE TABLE tls212_citation (
 
 CREATE TABLE tls214_npl_publn (
   npl_publn_id int(11) NOT NULL DEFAULT '0',
+  npl_type char(1) NOT NULL DEFAULT '', 
   npl_biblio text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (npl_publn_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=150;
