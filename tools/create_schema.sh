@@ -92,6 +92,10 @@ CREATE TABLE tls206_person (
   person_ctry_code char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   doc_std_name_id int(11) NOT NULL DEFAULT '0',
   doc_std_name varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  psn_id int(11) NOT NULL DEFAULT '0',
+  psn_name varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  psn_level smallint NOT NULL DEFAULT '0',
+  psn_sector varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT (''),
   PRIMARY KEY (person_id),
   KEY IX_person_ctry_code (person_ctry_code),
   KEY IX_doc_std_name_id (doc_std_name_id)
