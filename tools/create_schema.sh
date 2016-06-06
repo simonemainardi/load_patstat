@@ -141,6 +141,7 @@ CREATE TABLE tls211_pat_publn (
   pat_publn_id int(11) NOT NULL DEFAULT '0',
   publn_auth char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   publn_nr varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  publn_nr_original varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   publn_kind char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_id int(11) NOT NULL DEFAULT '0',
   publn_date date NOT NULL DEFAULT '9999-12-31',
