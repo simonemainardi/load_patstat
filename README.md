@@ -7,7 +7,7 @@ PATSTAT is shipped as a bunch of zipped, csv files spread across multiple DVDs. 
 
 This utility wants to make it easy for everyone to build a *PATSTAT MySQL* database from raw csv data. To achieve high-performances, database tables are compressed.
 
-Currently, there is full compatibility with version Autumn 2015, also known as 2015b.
+Currently, there is full compatibility with version Spring 2016, also known as 2016a.
 
 The utility is also capable of loading the standardized EEE-PPAT person table with harmonized assignee names and assignee sector allocations (https://www.ecoom.be/en/EEE-PPAT). This table has been officially included in version 2015a.
 
@@ -33,17 +33,17 @@ Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname -z pa
 
 Examples
 --------
-Load a **test** PASTSTAT database and the standardized person table into a MySQL database on `localhost` named `patstat2015b` -- note the `-t` modifier. Zipped table files have been placed into the default folder `./data`.
+Load a **test** PASTSTAT database and the standardized person table into a MySQL database on `localhost` named `patstat2016a` -- note the `-t` modifier. Zipped table files have been placed into the default folder `./data`.
 
 ```
-$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2015b -t -n
+$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2016a -t -n
 
 ```
 
-Load a **full** PATSTAT database and the standardized person table into a `localhost` MySQL database `patstat2015b`. Again, zipped table files have been placed into the default folder `./data`.
+Load a **full** PATSTAT database and the standardized person table into a `localhost` MySQL database `patstat2016a`. Again, zipped table files have been placed into the default folder `./data`.
 
 ```
-$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2014b -n
+$ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2016a -n
 
 ```
 
