@@ -103,15 +103,16 @@ load_table() {
 	# but we've to add some extra quotes in order to put the command in a shell variable
 	SED_FIX_1=`echo sed -e 's/\\\\\\("[^\"]$\\)/\1/g'`
 
-	# other rows are bugged as well since the cotain a backslash just before some double quote
+	# other rows are bugged as well since the cotain one or more backslash just before some double quote
 	# separating different columns
 	# e.g., 
 	# 8638854,"",4318,"BROTHER KOGYO KABUSHIKI KAISHA\",""
     # ... ,"COMPANY",108638854,"BROTHER KOGYO KABUSHIKI KAISHA\",0
+    # ... ,"","TAIWAN SEMICONDUCTOR MANUFACTURING COMPANY, LTD.\\","ASSIGNMENT ...
 	# so again we've to fix it using sed. The original sed expr used is:
-	#  sed -e 's/\\\(",[0-9\"]\)/\1/g'
+	#  sed -e 's/\\\+\(",[0-9\"]\)/\1/g'
 	# the escaped expression is
-	SED_FIX_2=`echo sed -e 's/\\\\\\(",[0-9\"]\\)/\1/g'`
+	SED_FIX_2=`echo sed -e 's/\\\\\\+\\(",[0-9\"]\\)/\1/g'`
 
 	prefix=$(echo $1 | cut -d'_' -f 1)  # grab only the prefix, e.g. tls201, from the full table name
 	for ZIPPEDFILE in `find $ZIPFILESPATH -name "$prefix\_part*\.zip" | sort`
