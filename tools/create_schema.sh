@@ -19,8 +19,12 @@ CREATE TABLE tls201_appln (
   appln_filing_date date NOT NULL DEFAULT '9999-12-31',
   appln_filing_year smallint NOT NULL DEFAULT '9999',
   appln_nr_epodoc varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  appln_nr_original varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   ipr_type char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   internat_appln_id int(11) NOT NULL DEFAULT '0',
+  int_phase varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  reg_phase varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  nat_phase varchar(11) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   earliest_filing_date date NOT NULL DEFAULT '9999-12-31',
   earliest_filing_year smallint NOT NULL DEFAULT '9999',
   earliest_filing_id int NOT NULL DEFAULT '0',
@@ -88,6 +92,10 @@ CREATE TABLE tls206_person (
   person_ctry_code char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   doc_std_name_id int(11) NOT NULL DEFAULT '0',
   doc_std_name varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  psn_id int(11) NOT NULL DEFAULT '0',
+  psn_name varchar(500) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  psn_level smallint NOT NULL DEFAULT '0',
+  psn_sector varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (person_id),
   KEY IX_person_ctry_code (person_ctry_code),
   KEY IX_doc_std_name_id (doc_std_name_id)
@@ -133,6 +141,7 @@ CREATE TABLE tls211_pat_publn (
   pat_publn_id int(11) NOT NULL DEFAULT '0',
   publn_auth char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   publn_nr varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  publn_nr_original varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   publn_kind char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   appln_id int(11) NOT NULL DEFAULT '0',
   publn_date date NOT NULL DEFAULT '9999-12-31',
@@ -155,7 +164,7 @@ CREATE TABLE tls212_citation (
   cited_pat_publn_id int(11) NOT NULL DEFAULT '0',
   cited_appln_id int(10) unsigned NOT NULL DEFAULT '0',
   pat_citn_seq_nr smallint(6) NOT NULL DEFAULT '0',
-  npl_publn_id int(11) NOT NULL DEFAULT '0',
+  cited_npl_publn_id int(11) NOT NULL DEFAULT '0',
   npl_citn_seq_nr smallint(6) NOT NULL DEFAULT '0',
   citn_gener_auth char(2) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (pat_publn_id,citn_id),
@@ -163,7 +172,7 @@ CREATE TABLE tls212_citation (
   KEY cited_appln_id (cited_appln_id,pat_publn_id),
   KEY IX_pat_citn_seq_nr (pat_citn_seq_nr),
   KEY IX_npl_citn_seq_nr (npl_citn_seq_nr),
-  KEY IX_npl_publn_id (npl_publn_id),
+  KEY IX_cited_npl_publn_id (cited_npl_publn_id),
   KEY IX_cited_pub_seq_nr (cited_pat_publn_id,pat_citn_seq_nr),
   KEY IX_cited_app_seq_nr (cited_appln_id,pat_citn_seq_nr)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  PACK_KEYS=0;
@@ -172,6 +181,7 @@ CREATE TABLE tls212_citation (
 
 CREATE TABLE tls214_npl_publn (
   npl_publn_id int(11) NOT NULL DEFAULT '0',
+  npl_type char(1) NOT NULL DEFAULT '', 
   npl_biblio text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (npl_publn_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  AVG_ROW_LENGTH=150;
