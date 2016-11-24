@@ -101,7 +101,7 @@ load_table() {
 	# the original sed expr is
 	# sed -e 's/\\\("[^\"]$\)/\1/g'
 	# but we've to add some extra quotes in order to put the command in a shell variable
-	SED_FIX_1=`echo sed -e 's/\\\\\\("[^\"]$\\)/\1/g'`
+	SED_FIX_1=`echo sed -e 's/\\\\\\+\\("[^\"]$\\)/\1/g'`
 
 	# other rows are bugged as well since the cotain one or more backslash just before some double quote
 	# separating different columns
