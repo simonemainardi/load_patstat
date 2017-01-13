@@ -44,7 +44,9 @@ CREATE TABLE tls201_appln (
   KEY IX_appln_filing_date (appln_filing_date),
   KEY IX_appln_kind (appln_kind),
   KEY IX_docdb_family_id (docdb_family_id),
-  KEY IX_inpadoc_family_id (inpadoc_family_id)
+  KEY IX_inpadoc_family_id (inpadoc_family_id),
+  KEY IX_docdb_family_id_filing_date (docdb_family_id,appln_filing_date),
+  KEY IX_inpadoc_family_id_filing_date (inpadoc_family_id,appln_filing_date)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
 
