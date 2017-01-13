@@ -399,11 +399,21 @@ CREATE TABLE tls902_ipc_nace2 (
 
 
 
+CREATE TABLE tls904_nuts (
+  nuts3 char(5) NOT NULL, 
+  nuts3_name varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (nuts3)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
+
+
+
 CREATE TABLE tls906_person (
   person_id int(11) NOT NULL DEFAULT '0',
   person_name varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_address varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_ctry_code char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  nuts char(5) NOT NULL DEFAULT '',
+  nuts_level smallint  NOT NULL DEFAULT '9',
   doc_std_name_id int(11) NOT NULL DEFAULT '0',
   doc_std_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   psn_id int(11) NOT NULL DEFAULT '0',
@@ -415,6 +425,7 @@ CREATE TABLE tls906_person (
   han_harmonized int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (person_id),
   KEY IX_ppat_person_ctry_code (person_ctry_code),
+  KEY IX_ppat_nuts (nuts),
   KEY IX_ppat_psn_name (psn_name(333)),
   KEY IX_ppat_psn_sector (psn_sector),
   KEY IX_ppat_psn_id (psn_id),

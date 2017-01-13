@@ -177,6 +177,7 @@ function main(){
     load_table tls204_appln_prior
     load_table tls205_tech_rel
     load_table tls206_person
+    load_table tls904_nuts
     load_table tls906_person  # this is person table with harmonized names
     load_table tls207_pers_appln
     load_table tls209_appln_ipc
