@@ -22,6 +22,7 @@ function show_help() {
     echo "  -t: load small chunks of data for testing purposes"
     echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to $ZIPFILESPATH)"
     echo "  -o: output and error logs directory (defaults to $LOGPATH)"
+    echo "  -m: mysql data path (defaults to $MYSQLDATAPATH)"
 }
 
 while getopts "?vto:u:p:d:h:z:m:" opt; do
@@ -45,6 +46,8 @@ while getopts "?vto:u:p:d:h:z:m:" opt; do
     d)  DB=$OPTARG
 	;;
     z)  ZIPFILESPATH=$OPTARG
+	;;
+    m)  MYSQLDATAPATH=$OPTARG
 	;;
     esac
 done
