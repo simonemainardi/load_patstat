@@ -185,6 +185,24 @@ CREATE TABLE tls214_npl_publn (
   npl_publn_id int(11) NOT NULL DEFAULT '0',
   npl_type char(1) NOT NULL DEFAULT '', 
   npl_biblio text COLLATE utf8mb4_unicode_ci NOT NULL,
+  npl_author nvarchar(500) NOT NULL DEFAULT '',
+  npl_title1 nvarchar(1000) NOT NULL DEFAULT '',
+  npl_title2 nvarchar(1000) NOT NULL DEFAULT '',
+  npl_editor nvarchar(500) NOT NULL DEFAULT '',
+  npl_volume varchar(50) NOT NULL DEFAULT '',
+  npl_issue varchar(50) NOT NULL DEFAULT '',
+  npl_publn_date varchar(8) NOT NULL DEFAULT '',
+  npl_publn_end_date varchar(8) NOT NULL DEFAULT '',
+  npl_publisher nvarchar(500) NOT NULL DEFAULT '',
+  npl_page_first varchar(200) NOT NULL DEFAULT '',
+  npl_page_last varchar(200) NOT NULL DEFAULT '',
+  npl_abstract_nr varchar(50) NOT NULL DEFAULT '',
+  npl_doi varchar(500) NOT NULL DEFAULT '',
+  npl_isbn varchar(30) NOT NULL DEFAULT '',
+  npl_issn varchar(30) NOT NULL DEFAULT '',
+  online_availability varchar(300) NOT NULL DEFAULT '', 
+  online_classification varchar(3) NOT NULL DEFAULT '',
+  online_search_date varchar(8) NOT NULL DEFAULT '',
   PRIMARY KEY (npl_publn_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=150;
 
@@ -207,40 +225,47 @@ CREATE TABLE tls216_appln_contn (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
 
-
-CREATE TABLE tls221_inpadoc_prs (
+CREATE TABLE tls231_inpadoc_legal_event (
   appln_id int(11) NOT NULL DEFAULT '0',
-  prs_event_seq_nr smallint(6) NOT NULL DEFAULT '0',
-  prs_gazette_date date NOT NULL DEFAULT '9999-12-31',
-  prs_code char(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l501ep varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l502ep varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lec_id smallint(6) NOT NULL DEFAULT '0',
-  l503ep varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l504ep varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l505ep date NOT NULL DEFAULT '9999-12-31',
-  l506ep varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l507ep varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l508ep varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l509ep varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l510ep varchar(700) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l511ep varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l512ep date NOT NULL DEFAULT '9999-12-31',
-  l513ep date NOT NULL DEFAULT '9999-12-31',
-  l515ep varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l516ep varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l517ep varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l518ep date NOT NULL DEFAULT '9999-12-31',
-  l519ep varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l520ep tinyint(4) NOT NULL DEFAULT '0',
-  l522ep varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  l523ep date NOT NULL DEFAULT '9999-12-31',
-  l524ep varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  l525ep date NOT NULL DEFAULT '9999-12-31',
-  PRIMARY KEY (appln_id,prs_event_seq_nr),
-  KEY prs_gazette_date (prs_gazette_date,appln_id),
-  KEY lec_id (lec_id,appln_id),
-  KEY prs_code (prs_code,appln_id)
+  event_seq_nr smallint(6) NOT NULL DEFAULT '0',
+  event_type char(3) NOT NULL DEFAULT '  ',
+  event_auth char(2) NOT NULL DEFAULT '  ',
+  event_code varchar(4)  NOT NULL DEFAULT '',
+  event_publn_date date NOT NULL DEFAULT '9999-12-31',
+  event_effective_date date NOT NULL DEFAULT '9999-12-31',
+  event_text varchar(1000) NOT NULL DEFAULT '',
+  ref_doc_auth char(2) NOT NULL DEFAULT '  ',
+  ref_doc_nr varchar(20) NOT NULL DEFAULT '',
+  ref_doc_kind char(2) NOT NULL DEFAULT '  ',
+  ref_doc_date date NOT NULL DEFAULT '9999-12-31',
+  ref_doc_text varchar(1000) NOT NULL DEFAULT '',
+  party_type varchar(3) NOT NULL DEFAULT '   ',
+  party_seq_nr smallint NOT NULL default '0',
+  party_new varchar(1000) NOT NULL DEFAULT '',
+  party_old varchar(1000) NOT NULL DEFAULT '',
+  spc_nr varchar(40) NOT NULL DEFAULT '',
+  spc_filing_date date NOT NULL DEFAULT '9999-12-31',
+  spc_patent_expiry_date date NOT NULL DEFAULT '9999-12-31',
+  spc_extension_date date NOT NULL DEFAULT '9999-12-31',
+  spc_text varchar(1000) NOT NULL DEFAULT '',
+  designated_states varchar(1000) NOT NULL DEFAULT '',
+  extension_states varchar(30) NOT NULL DEFAULT '',
+  fee_country char(2) NOT NULL DEFAULT '  ',
+  fee_payment_date date NOT NULL DEFAULT '9999-12-31',
+  fee_renewal_year smallint NOT NULL default '9999',
+  fee_text varchar(1000) NOT NULL DEFAULT '',
+  lapse_country char(2) NOT NULL DEFAULT '  ',
+  lapse_date date NOT NULL DEFAULT '9999-12-31',
+  lapse_text varchar(1000) NOT NULL DEFAULT '',
+  reinstate_country char(2) NOT NULL DEFAULT '  ',
+  reinstate_date date NOT NULL DEFAULT '9999-12-31',
+  reinstate_text varchar(1000) NOT NULL DEFAULT '',
+  class_scheme varchar(4) NOT NULL DEFAULT '',
+  class_symbol varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (appln_id,event_seq_nr),
+  KEY event_publn_date (event_publn_date,appln_id),
+  KEY event_type (event_type,appln_id),
+  KEY event_code (event_code,appln_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
@@ -360,19 +385,15 @@ CREATE TABLE tls801_country (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
-
-CREATE TABLE tls802_legal_event_code (
-  lec_id smallint(6) NOT NULL DEFAULT '0',
-  auth_cc varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lec_name varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  nat_auth_cc varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  nat_lec_name varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  impact char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lec_descr varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lecg_id tinyint(4) NOT NULL DEFAULT '0',
-  lecg_name varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lecg_descr varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (lec_id)
+CREATE TABLE tls803_legal_event_code (
+  event_auth char(2) NOT NULL DEFAULT '',
+  event_code varchar(4) NOT NULL DEFAULT '',
+  event_impact char(1) NOT NULL DEFAULT '',
+  event_descr varchar(250) NOT NULL DEFAULT '',
+  event_descr_orig varchar(250) NOT NULL DEFAULT '',
+  lecg_name varchar(6) NOT NULL DEFAULT '',
+  lecg_descr varchar(250) NOT NULL DEFAULT '',
+  PRIMARY KEY (event_auth, event_code);
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 

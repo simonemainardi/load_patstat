@@ -22,6 +22,7 @@ function show_help() {
     echo "  -t: load small chunks of data for testing purposes"
     echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to $ZIPFILESPATH)"
     echo "  -o: output and error logs directory (defaults to $LOGPATH)"
+    echo "  -m: mysql data path (defaults to $MYSQLDATAPATH)"
 }
 
 while getopts "?vto:u:p:d:h:z:m:" opt; do
@@ -45,6 +46,8 @@ while getopts "?vto:u:p:d:h:z:m:" opt; do
     d)  DB=$OPTARG
 	;;
     z)  ZIPFILESPATH=$OPTARG
+	;;
+    m)  MYSQLDATAPATH=$OPTARG
 	;;
     esac
 done
@@ -196,11 +199,11 @@ function main(){
     load_table tls229_appln_nace2
     load_table tls230_appln_techn_field
     load_table tls801_country
-    load_table tls802_legal_event_code
+    load_table tls803_legal_event_code
     load_table tls901_techn_field_ipc
     load_table tls902_ipc_nace2
     load_table tls203_appln_abstr
-    load_table tls221_inpadoc_prs
+    load_table tls231_inpadoc_legal_event
 
     # finally, prints out some statistics on loaded tables
     $SENDSQL <<EOF
