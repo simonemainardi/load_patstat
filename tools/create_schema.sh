@@ -367,19 +367,15 @@ CREATE TABLE tls801_country (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
-
-CREATE TABLE tls802_legal_event_code (
-  lec_id smallint(6) NOT NULL DEFAULT '0',
-  auth_cc varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lec_name varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  nat_auth_cc varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  nat_lec_name varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  impact char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lec_descr varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lecg_id tinyint(4) NOT NULL DEFAULT '0',
-  lecg_name varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  lecg_descr varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (lec_id)
+CREATE TABLE tls803_legal_event_code (
+  event_auth char(2) NOT NULL DEFAULT '',
+  event_code varchar(4) NOT NULL DEFAULT '',
+  event_impact char(1) NOT NULL DEFAULT '',
+  event_descr varchar(250) NOT NULL DEFAULT '',
+  event_descr_orig varchar(250) NOT NULL DEFAULT '',
+  lecg_name varchar(6) NOT NULL DEFAULT '',
+  lecg_descr varchar(250) NOT NULL DEFAULT '',
+  PRIMARY KEY (event_auth, event_code);
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
