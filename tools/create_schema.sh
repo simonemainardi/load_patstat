@@ -393,7 +393,7 @@ CREATE TABLE tls803_legal_event_code (
   event_descr_orig varchar(250) NOT NULL DEFAULT '',
   lecg_name varchar(6) NOT NULL DEFAULT '',
   lecg_descr varchar(250) NOT NULL DEFAULT '',
-  PRIMARY KEY (event_auth, event_code);
+  PRIMARY KEY (event_auth, event_code)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
