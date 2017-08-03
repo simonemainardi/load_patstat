@@ -183,7 +183,7 @@ CREATE TABLE tls212_citation (
 
 CREATE TABLE tls214_npl_publn (
   npl_publn_id int(11) NOT NULL DEFAULT '0',
-  npl_type char(1) NOT NULL DEFAULT '', 
+  npl_type char(1) NOT NULL DEFAULT '',
   npl_biblio text COLLATE utf8mb4_unicode_ci NOT NULL,
   npl_author nvarchar(500) NOT NULL DEFAULT '',
   npl_title1 nvarchar(1000) NOT NULL DEFAULT '',
@@ -200,7 +200,7 @@ CREATE TABLE tls214_npl_publn (
   npl_doi varchar(500) NOT NULL DEFAULT '',
   npl_isbn varchar(30) NOT NULL DEFAULT '',
   npl_issn varchar(30) NOT NULL DEFAULT '',
-  online_availability varchar(300) NOT NULL DEFAULT '', 
+  online_availability varchar(300) NOT NULL DEFAULT '',
   online_classification varchar(3) NOT NULL DEFAULT '',
   online_search_date varchar(8) NOT NULL DEFAULT '',
   PRIMARY KEY (npl_publn_id)
@@ -421,7 +421,7 @@ CREATE TABLE tls902_ipc_nace2 (
 
 
 CREATE TABLE tls904_nuts (
-  nuts3 char(5) NOT NULL, 
+  nuts3 char(5) NOT NULL,
   nuts3_name varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (nuts3)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
@@ -447,11 +447,11 @@ CREATE TABLE tls906_person (
   PRIMARY KEY (person_id),
   KEY IX_ppat_person_ctry_code (person_ctry_code),
   KEY IX_ppat_nuts (nuts),
-  KEY IX_ppat_psn_name (psn_name(333)),
+  KEY IX_ppat_psn_name (psn_name(250)),
   KEY IX_ppat_psn_sector (psn_sector),
   KEY IX_ppat_psn_id (psn_id),
   KEY IX_ppat_han_id (han_id),
-  KEY IX_han_name (han_name(333)),
+  KEY IX_han_name (han_name(250)),
   KEY IX_han_harmonized (han_harmonized)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
