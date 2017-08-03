@@ -9,11 +9,10 @@ This utility wants to make it easy for everyone to build a *PATSTAT MySQL* datab
 
 Currently, there is full compatibility with version Spring 2017, also known as 2017a.
 
-The utility is also capable of loading the standardized EEE-PPAT person table with harmonized assignee names and assignee sector allocations (https://www.ecoom.be/en/EEE-PPAT). This table has been officially included in version 2015a.
 
 Prerequisites
 -------------
-Every zipped table file `tlsXXX_partYY.zip` found in PATSTAT DVDs should be copied into a single folder. TLS221_INPADOC_PRS DVD zipped table may be copied there as well.
+Every zipped table file `tlsXXX_partYY.zip` found in PATSTAT usb sticks or downloadead archives should be copied into a single folder. PATSTAT LEGAL EVENTS tables may be copied there as well
 
 
 Usage
