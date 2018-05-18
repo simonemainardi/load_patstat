@@ -21,6 +21,7 @@ CREATE TABLE tls201_appln (
   appln_nr_epodoc varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   appln_nr_original varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   ipr_type char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  receiving_office char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   internat_appln_id int(11) NOT NULL DEFAULT '0',
   int_phase varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   reg_phase varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
