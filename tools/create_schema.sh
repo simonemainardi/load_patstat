@@ -227,6 +227,7 @@ CREATE TABLE tls216_appln_contn (
 
 
 CREATE TABLE tls231_inpadoc_legal_event (
+  event_id int NOT NULL DEFAULT '0',
   appln_id int(11) NOT NULL DEFAULT '0',
   event_seq_nr smallint(6) NOT NULL DEFAULT '0',
   event_type char(3) NOT NULL DEFAULT '  ',
