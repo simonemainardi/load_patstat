@@ -423,9 +423,10 @@ CREATE TABLE tls902_ipc_nace2 (
 
 
 CREATE TABLE tls904_nuts (
-  nuts3 char(5) NOT NULL,
-  nuts3_name varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (nuts3)
+  nuts varchar(5) NOT NULL,
+  nuts_level int NOT NULL DEFAULT '0',
+  nuts_label varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (nuts)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
 
