@@ -166,6 +166,7 @@ CREATE TABLE tls211_pat_publn (
 
 CREATE TABLE tls212_citation (
   pat_publn_id int(11) NOT NULL DEFAULT '0',
+  citn_replenished int NOT NULL DEFAULT '0',
   citn_id smallint(6) NOT NULL DEFAULT '0',
   citn_origin char(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   cited_pat_publn_id int(11) NOT NULL DEFAULT '0',
@@ -174,7 +175,7 @@ CREATE TABLE tls212_citation (
   cited_npl_publn_id int(11) NOT NULL DEFAULT '0',
   npl_citn_seq_nr smallint(6) NOT NULL DEFAULT '0',
   citn_gener_auth char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (pat_publn_id,citn_id),
+  PRIMARY KEY (pat_publn_id,citn_replenished,citn_id),
   KEY IX_cited_pat_publn_id (cited_pat_publn_id),
   KEY cited_appln_id (cited_appln_id,pat_publn_id),
   KEY IX_pat_citn_seq_nr (pat_citn_seq_nr),
