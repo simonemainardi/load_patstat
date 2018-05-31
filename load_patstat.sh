@@ -10,6 +10,7 @@ ZIPFILESPATH=./data
 LOGPATH=./logs
 verbose=0
 DEMO=0
+ENGINE=myisam
 USER=
 PASS=
 HOST=
@@ -23,9 +24,10 @@ function show_help() {
     echo "  -z: directory containing patstat zipped files shipped in DVDs (defaults to $ZIPFILESPATH)"
     echo "  -o: output and error logs directory (defaults to $LOGPATH)"
     echo "  -m: mysql data path (defaults to $MYSQLDATAPATH)"
+    echo "  -e: mysql engine (defaults to $ENGINE)"
 }
 
-while getopts "?vto:u:p:d:h:z:m:" opt; do
+while getopts "?vto:u:p:d:h:z:m:e:" opt; do
     case "$opt" in
     \?)
         show_help
@@ -48,6 +50,8 @@ while getopts "?vto:u:p:d:h:z:m:" opt; do
     z)  ZIPFILESPATH=$OPTARG
 	;;
     m)  MYSQLDATAPATH=$OPTARG
+	;;
+    e)  ENGINE=$(echo $OPTARG | tr  '[:upper:]' '[:lower:]')
 	;;
     esac
 done
@@ -78,7 +82,7 @@ fi
 SENDSQL="mysql -vv --show-warnings --local-infile -u$USER -p$PASS -h$HOST $DB"
 
 function create_db() {
-    ./tools/create_schema.sh $DB | mysql -vv --show-warnings -u$USER -p$PASS -h$HOST
+    ./tools/create_schema.sh $DB $ENGINE | mysql -vv --show-warnings -u$USER -p$PASS -h$HOST
     echo FLUSH TABLES \; | $SENDSQL
 }
 
@@ -89,9 +93,13 @@ load_table() {
 	# This removes all use of indexes for the table.
 	# An option value of 0 disables updates to all indexes, which can be used to get faster inserts.
 	echo TRUNCATE TABLE $1 \; | $SENDSQL 
-	echo ALTER TABLE $1 DISABLE KEYS\; | $SENDSQL ;
+        if [[ $ENGINE == "myisam" ]]; then
+	    echo ALTER TABLE $1 DISABLE KEYS\; | $SENDSQL ;
+        fi
 
-	myisamchk  --keys-used=0 -rqp $MYSQLDATAPATH/$DB/$1*.MYI
+        if [[ $ENGINE == "myisam" ]]; then
+	    myisamchk  --keys-used=0 -rqp $MYSQLDATAPATH/$DB/$1*.MYI
+        fi
 
 	echo $TIME Loading data in $1 from $3 files
 
@@ -120,7 +128,9 @@ load_table() {
                set unique_checks = 0;
                set foreign_key_checks = 0;
                LOAD DATA LOCAL INFILE "$UNZIPPEDFILE"
-               INTO TABLE $1 FIELDS TERMINATED BY ","
+               INTO TABLE $1 
+               CHARACTER SET 'utf8mb4'
+               FIELDS TERMINATED BY ","
                OPTIONALLY ENCLOSED BY '"'
                ESCAPED BY ''
                LINES TERMINATED BY '\r\n'
@@ -131,15 +141,19 @@ EOF
 	    rm -rf $UNZIPPEDFILE
 	done
 
-	echo ALTER TABLE $1 ENABLE KEYS \; | $SENDSQL ;
+        if [[ $ENGINE == "myisam" ]]; then
+	    echo ALTER TABLE $1 ENABLE KEYS \; | $SENDSQL ;
+        fi
 
-	# If you intend only to read from the table in the future, use myisampack to compress it.
-	# only if it was not partitioned
-	echo "compressing"
-	myisampack $MYSQLDATAPATH/$DB/$1.MYI
+        if [[ $ENGINE == "myisam" ]]; then
+	    # If you intend only to read from the table in the future, use myisampack to compress it.
+	    # only if it was not partitioned
+	    echo "compressing"
+	    myisampack $MYSQLDATAPATH/$DB/$1.MYI
 
-	# Re-create the indexes
-	myisamchk  -rqp --sort-buffer-size=2G $MYSQLDATAPATH/$DB/$1*.MYI
+	    # Re-create the indexes
+	    myisamchk  -rqp --sort-buffer-size=2G $MYSQLDATAPATH/$DB/$1*.MYI
+        fi
 
 	# FLUSH TABLES
 	echo FLUSH TABLES \; | $SENDSQL
