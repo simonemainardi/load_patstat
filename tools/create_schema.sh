@@ -201,7 +201,7 @@ CREATE TABLE tls214_npl_publn (
   npl_isbn varchar(30) NOT NULL DEFAULT '',
   npl_issn varchar(30) NOT NULL DEFAULT '',
   online_availability varchar(300) NOT NULL DEFAULT '',
-  online_classification varchar(3) NOT NULL DEFAULT '',
+  online_classification varchar(35) NOT NULL DEFAULT '',
   online_search_date varchar(8) NOT NULL DEFAULT '',
   PRIMARY KEY (npl_publn_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=150;
