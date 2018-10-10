@@ -239,6 +239,7 @@ CREATE TABLE tls231_inpadoc_legal_event (
   event_type char(3) NOT NULL DEFAULT '  ',
   event_auth char(2) NOT NULL DEFAULT '  ',
   event_code varchar(4)  NOT NULL DEFAULT '',
+	event_filing_date date NOT NULL DEFAULT '9999-12-31',
   event_publn_date date NOT NULL DEFAULT '9999-12-31',
   event_effective_date date NOT NULL DEFAULT '9999-12-31',
   event_text varchar(1000) NOT NULL DEFAULT '',
