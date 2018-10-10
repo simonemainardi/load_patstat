@@ -1,18 +1,18 @@
 Import PATSTAT into MySQL
 =========================
 
-European Patent Office (EPO) database PATSTAT is a snapshot of the EPO master documentation database (DOCDB) with worldwide coverage, containing approximately 20 tables including bibliographic data, citations and family links.
+European Patent Office (EPO) database PATSTAT Global is a snapshot of the EPO master documentation database (DOCDB) with worldwide coverage, containing approximately 20 tables including bibliographic data, citations and family links.
 
-PATSTAT is shipped as a bunch of zipped, csv files spread across multiple DVDs. Unfortunately, existing scripts and documentation only help users loading raw data into MSSQL databases.
+PATSTAT is shipped as a bunch of zipped, csv files. Unfortunately, existing scripts and documentation only help users loading raw data into MSSQL databases.
 
 This utility wants to make it easy for everyone to build a *PATSTAT MySQL* database from raw csv data. To achieve high-performances, database tables are compressed.
 
-Currently, there is full compatibility with version Spring 2017, also known as 2017a.
+Currently, there is full compatibility with version Autumn 2018, also known as 2018b.
 
 
 Prerequisites
 -------------
-Every zipped table file `tlsXXX_partYY.zip` found in PATSTAT usb sticks or downloadead archives should be copied into a single folder. PATSTAT LEGAL EVENTS tables may be copied there as well
+Every zipped table file `tlsXXX_partYY.zip` found in PATSTAT usb sticks or downloadead archives should be copied into a single folder.
 
 
 Usage
@@ -27,8 +27,12 @@ Usage: [-v] [-t] -u mysql_user -p mysql_pass -h mysql_host -d mysql_dbname -z pa
   -t: load small chunks of data for testing purposes
   -z: directory containing patstat zipped files shipped in DVDs (defaults to ./data)
   -o: output and error logs directory (defaults to ./)
+  -m: mysql data path (useful in combination with MyISAM engine)
+  -e: mysql engine (defaults to MyISAM)
 
 ```
+
+Since the 2018a release the preferred engine can now be used. The default engine is MyISAM. **Be sure to know the implications in preferring a specific engine**: import time, disk/cpu/memory usage can vary a lot, depending on your setup.
 
 Examples
 --------
@@ -48,4 +52,4 @@ $ ./load_patstat.sh -u<USER> -p<PASSWORD> -hlocalhost -d patstat2017a -n
 
 Troubleshooting
 ---------------
-This utility must have write privileges into MySQL data folder. This is necessary to compress database tables and to work with table indices. Make sure the user that executes `load_patstat.sh` has such privileges.
+Using MyISAM engine, the utility must have write privileges into MySQL data folder. This is necessary to compress database tables and to work with table indices. Make sure the user that executes `load_patstat.sh` has such privileges.
