@@ -401,7 +401,7 @@ CREATE TABLE tls803_legal_event_code (
   event_descr varchar(250) NOT NULL DEFAULT '',
   event_descr_orig varchar(250) NOT NULL DEFAULT '',
   event_category_code char(1) NOT NULL DEFAULT '',
-  event_category_title varchar(100) NOT NULL DEFAULT ''
+  event_category_title varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (event_auth, event_code)
 ) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
