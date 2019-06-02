@@ -219,7 +219,8 @@ CREATE TABLE tls215_citn_categ (
   pat_publn_id int(11) NOT NULL DEFAULT '0',
   citn_replenished int NOT NULL DEFAULT '0',
   citn_id smallint(6) NOT NULL DEFAULT '0',
-  citn_categ char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  citn_categ char(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  relevant_claim smallint(6) NOT NULL DEFAULT '',
   PRIMARY KEY (pat_publn_id,citn_replenished,citn_id,citn_categ)
 ) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
