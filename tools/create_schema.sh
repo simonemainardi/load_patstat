@@ -94,7 +94,8 @@ CREATE TABLE tls205_tech_rel (
 
 CREATE TABLE tls206_person (
   person_id int(11) NOT NULL DEFAULT '0',
-  person_name varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  person_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  person_name_orig_lg varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_address varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_ctry_code char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   doc_std_name_id int(11) NOT NULL DEFAULT '0',
@@ -317,6 +318,7 @@ CREATE TABLE tls226_person_orig (
   source char(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   source_version varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   name_freeform varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  person_name_orig_lg varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   last_name varchar(400) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   first_name varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   middle_name varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -440,7 +442,8 @@ CREATE TABLE tls904_nuts (
 
 CREATE TABLE tls906_person (
   person_id int(11) NOT NULL DEFAULT '0',
-  person_name varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
+  person_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
+  person_name_orig_lg varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_address varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_ctry_code char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   nuts char(5) NOT NULL DEFAULT '',
