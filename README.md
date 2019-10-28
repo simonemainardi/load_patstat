@@ -7,7 +7,7 @@ PATSTAT is shipped as a bunch of zipped, csv files. Unfortunately, existing scri
 
 This utility wants to make it easy for everyone to build a *PATSTAT MySQL* database from raw csv data. To achieve high-performances, database tables are compressed.
 
-Currently, there is full compatibility with version Autumn 2018, also known as 2018b.
+Currently, there is full compatibility with version Autumn 2019, also known as 2019b.
 
 
 Prerequisites
