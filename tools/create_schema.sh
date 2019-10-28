@@ -93,20 +93,32 @@ CREATE TABLE tls205_tech_rel (
 
 
 CREATE TABLE tls206_person (
-  person_id int(11) NOT NULL DEFAULT '0',
+  person_id int NOT NULL DEFAULT '0',
   person_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_name_orig_lg varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_address varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
   person_ctry_code char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  doc_std_name_id int(11) NOT NULL DEFAULT '0',
-  doc_std_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  psn_id int(11) NOT NULL DEFAULT '0',
+  nuts char(5) NOT NULL DEFAULT '',
+  nuts_level smallint  NOT NULL DEFAULT '9',
+  doc_std_name_id int NOT NULL DEFAULT '0',
+  doc_std_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  psn_id int NOT NULL DEFAULT '0',
   psn_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   psn_level smallint NOT NULL DEFAULT '0',
   psn_sector varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  han_id int NOT NULL DEFAULT '0',
+  han_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  han_harmonized int NOT NULL DEFAULT '0',
   PRIMARY KEY (person_id),
   KEY IX_person_ctry_code (person_ctry_code),
   KEY IX_doc_std_name_id (doc_std_name_id)
+  KEY IX_ppat_nuts (nuts),
+  KEY IX_ppat_psn_name (psn_name(250)),
+  KEY IX_ppat_psn_sector (psn_sector),
+  KEY IX_ppat_psn_id (psn_id),
+  KEY IX_ppat_han_id (han_id),
+  KEY IX_han_name (han_name(250)),
+  KEY IX_han_harmonized (han_harmonized)
 ) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
@@ -438,36 +450,6 @@ CREATE TABLE tls904_nuts (
   nuts_label varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (nuts)
 ) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
-
-
-
-CREATE TABLE tls906_person (
-  person_id int(11) NOT NULL DEFAULT '0',
-  person_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  person_name_orig_lg varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  person_address varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-  person_ctry_code char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  nuts char(5) NOT NULL DEFAULT '',
-  nuts_level smallint  NOT NULL DEFAULT '9',
-  doc_std_name_id int(11) NOT NULL DEFAULT '0',
-  doc_std_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  psn_id int(11) NOT NULL DEFAULT '0',
-  psn_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  psn_level tinyint(4) NOT NULL DEFAULT '0',
-  psn_sector varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  han_id int(11) NOT NULL DEFAULT '0',
-  han_name varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  han_harmonized int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (person_id),
-  KEY IX_ppat_person_ctry_code (person_ctry_code),
-  KEY IX_ppat_nuts (nuts),
-  KEY IX_ppat_psn_name (psn_name(250)),
-  KEY IX_ppat_psn_sector (psn_sector),
-  KEY IX_ppat_psn_id (psn_id),
-  KEY IX_ppat_han_id (han_id),
-  KEY IX_han_name (han_name(250)),
-  KEY IX_han_harmonized (han_harmonized)
-) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci  AVG_ROW_LENGTH=100;
 
 
 
