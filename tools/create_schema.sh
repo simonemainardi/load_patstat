@@ -111,7 +111,7 @@ CREATE TABLE tls206_person (
   han_harmonized int NOT NULL DEFAULT '0',
   PRIMARY KEY (person_id),
   KEY IX_person_ctry_code (person_ctry_code),
-  KEY IX_doc_std_name_id (doc_std_name_id)
+  KEY IX_doc_std_name_id (doc_std_name_id),
   KEY IX_ppat_nuts (nuts),
   KEY IX_ppat_psn_name (psn_name(250)),
   KEY IX_ppat_psn_sector (psn_sector),
