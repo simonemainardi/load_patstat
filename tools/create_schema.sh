@@ -409,7 +409,7 @@ CREATE TABLE tls801_country (
   ctry_code varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   iso_alpha3 varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   st3_name varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  state_indicator char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  organisation_flag char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   continent varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   eu_member char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   epo_member char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
