@@ -63,7 +63,7 @@ shift $((OPTIND-1))
 
 if [[ -z $USER ]] || [[ -z $PASS ]] || [[ -z $HOST ]] || [[ -z $DB ]] || [[ -z $ZIPFILESPATH ]]
 then
-     show_help 
+     show_help
      exit 1
 fi
 
@@ -92,7 +92,7 @@ load_table() {
 
 	# This removes all use of indexes for the table.
 	# An option value of 0 disables updates to all indexes, which can be used to get faster inserts.
-	echo TRUNCATE TABLE $1 \; | $SENDSQL 
+	echo TRUNCATE TABLE $1 \; | $SENDSQL
         if [[ $ENGINE == "myisam" ]]; then
 	    echo ALTER TABLE $1 DISABLE KEYS\; | $SENDSQL ;
         fi
@@ -128,7 +128,7 @@ load_table() {
                set unique_checks = 0;
                set foreign_key_checks = 0;
                LOAD DATA LOCAL INFILE "$UNZIPPEDFILE"
-               INTO TABLE $1 
+               INTO TABLE $1
                CHARACTER SET 'utf8mb4'
                FIELDS TERMINATED BY ","
                OPTIONALLY ENCLOSED BY '"'
@@ -189,6 +189,7 @@ function main(){
     load_table tls222_appln_jp_class
     load_table tls223_appln_docus
     load_table tls224_appln_cpc
+    load_table tls225_docdb_fam_cpc
     load_table tls226_person_orig
     load_table tls227_pers_publn
     load_table tls228_docdb_fam_citn
@@ -218,7 +219,7 @@ main 2> $LOGPATH/error_log_$tstamp > $LOGPATH/output_log_$tstamp
 
 # check of errors
 errlines=`wc -l $LOGPATH/error_log_$tstamp | cut -d' ' -f1`
-if [ $errlines -gt 0 ] 
+if [ $errlines -gt 0 ]
 then
     if [ $errlines -le 3 ]
     then

@@ -315,12 +315,22 @@ CREATE TABLE tls223_appln_docus (
 CREATE TABLE tls224_appln_cpc (
   appln_id int(11) NOT NULL DEFAULT '0',
   cpc_class_symbol varchar(19) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  cpc_scheme varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  cpc_version date NOT NULL DEFAULT '9999-12-31',
-  cpc_value char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  cpc_position char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (appln_id, cpc_class_symbol)
+) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
+
+
+
+CREATE TABLE tls225_docdb_fam_cpc (
+  docdb_family_id int NOT NULL DEFAULT '0',
+  cpc_class_symbol varchar(19) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   cpc_gener_auth char(2) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (appln_id, cpc_class_symbol, cpc_scheme)
+  cpc_version date NOT NULL DEFAULT '9999-12-31',
+  cpc_position char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  cpc_value char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  cpc_action_date date NOT NULL DEFAULT '9999-12-31',
+  cpc_status char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  cpc_data_source char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (docdb_family_id, cpc_class_symbol, cpc_gener_auth, cpc_version)
 ) ENGINE=${ENGINE} $ROW_FORMAT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ;
 
 
