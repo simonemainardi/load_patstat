@@ -201,7 +201,8 @@ CREATE TABLE tls212_citation (
 
 
 CREATE TABLE tls214_npl_publn (
-  npl_publn_id int(11) NOT NULL DEFAULT '0',
+  npl_publn_id varchar(32) NOT NULL DEFAULT '0',
+  xp_nr int(11) NOT NULL DEFAULT '0',
   npl_type char(1) NOT NULL DEFAULT '',
   npl_biblio longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   npl_author nvarchar(1000) NOT NULL DEFAULT '',
